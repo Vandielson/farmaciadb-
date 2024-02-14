@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Medicamento {
@@ -19,12 +20,15 @@ public class Medicamento {
 	@NotEmpty
 	private String dosagem;
 	
-	@NotEmpty
+	@NotNull
 	private double preco;
 	
-	@NotEmpty
+	@NotNull
 	private int quantidade;
 	
+	public long getId() {
+		return id;
+	}
 
 	public String getNome() {
 		return nome;
