@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Vendedor {
@@ -23,7 +24,10 @@ public class Vendedor {
 	@Column(unique = true)
 	private String telefone;
 	
+	@NotNull
 	private double salario;
+	
+	@NotNull
 	private double percentualComicao;
 	
 
@@ -31,11 +35,7 @@ public class Vendedor {
 		return cpf;
 	}
 	public void setCpf(String cpf) {
-		if(cpf.length() == 11) {
-			this.cpf = cpf;
-	}else {
-		System.out.println("Cpf Inválido");
-		}
+		this.cpf = cpf;
 	}
 	
 	public String getNome() {
@@ -49,11 +49,7 @@ public class Vendedor {
 		return telefone;
 	}
 	public void setTelefone(String telefone) {
-		if(telefone.length() == 11) {
-			this.telefone = telefone;
-		} else{
-			System.out.println("Número inválido");
-		}
+		this.telefone = telefone;
 	}
 	
 	public double getSalario() {

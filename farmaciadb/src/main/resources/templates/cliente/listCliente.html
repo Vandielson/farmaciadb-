@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lista de Clientes</title>
+</head>
+
+<body>
+
+    <header>
+    	<nav>
+    	</nav>
+    </header>
+
+    <div>
+        <h1>Listar Clientes</h1>
+    </div>
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>CPF</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cliente : ${clientes}">
+                    <td th:text="${cliente.id}"></td>
+                    <td th:text="${cliente.cpf}"></td>
+                    <td th:text="${cliente.nome}"></td>
+                    <td th:text="${cliente.telefone}"></td>
+                    <td>
+                        <a th:href="@{/editCliente(id=${cliente.id})}">Editar</a>
+                        <a th:href="@{/deleteCliente(id=${cliente.id})}">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+    </footer>
+
+</body>
+
+</html>

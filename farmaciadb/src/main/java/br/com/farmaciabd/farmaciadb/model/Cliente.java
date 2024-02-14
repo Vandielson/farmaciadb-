@@ -26,15 +26,15 @@ public class Cliente implements Serializable{
 	@Column(unique = true)
 	private String telefone;
 	
+	public long getId() {
+		return id;
+	}
+	
 	public String getCpf() {
 		return cpf;
 	}
 	public void setCpf(String cpf) {
-		if(cpf.length() == 11) {
-			this.cpf = cpf;
-	}else {
-		System.out.println("Cpf Inválido");
-		}
+		this.cpf = cpf;
 	}
 	
 	public String getNome() {
@@ -47,11 +47,7 @@ public class Cliente implements Serializable{
 		return telefone;
 	}
 	public void setTelefone(String telefone) {
-		if(telefone.length() == 11) {
-			this.telefone = telefone;
-		} else{
-			System.out.println("Número inválido");
-		}
+		this.telefone = telefone;
 	}
 	
 }
