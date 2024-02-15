@@ -6,37 +6,141 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Formulário de Cliente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        div {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        label {
+            color: #333;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .btn-blue { 
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-blue:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff; 
+            background-color: #007bff; 
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 
 <body>
 
-    <header>
-        <nav>
-        </nav>
-    </header>
+<header>
+    <nav>
+        <ul>
+           
+        </ul>
+    </nav>
+</header>
 
-    <div>
-        <h1>Formulário Cliente</h1>
+<div>
+    <h1>Formulário Cliente</h1>
 
-        <form method="post" action="/newCliente">
-        
-                <label for="cpf">CPF:</label> <br>
-                <input type="text" id="cpf" name="cpf" required><br>
-                
-                <label for="nome">Nome:</label><br>
-                <input type="text" id="nome" name="nome" required><br>
-                
-                <label for="telefone">Telefone:</label> <br>
-                <input type="text" id="telefone" name="telefone" required> <br>
-            <button type="submit">Cadastrar Cliente</button>
-            <br>
-        </form>
-         <a href="/">Página Principal</a>
-        
-    </div>
+    <form method="post" action="/newCliente">
+    
+            <label for="cpf">CPF:</label> <br>
+            <input type="text" id="cpf" name="cpf" required><br>
+            
+            <label for="nome">Nome:</label><br>
+            <input type="text" id="nome" name="nome" required><br>
+            
+            <label for="telefone">Telefone:</label> <br>
+            <input type="text" id="telefone" name="telefone" required> <br>
+        <button type="submit" class="btn-blue">Cadastrar Cliente</button> 
+        <br>
+    </form>
+     <a href="/" class="btn-blue">Página Principal</a> 
+</div>
 
-    <footer>
-    </footer>
+<footer>
+</footer>
 
 </body>
 

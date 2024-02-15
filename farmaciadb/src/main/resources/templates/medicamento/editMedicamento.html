@@ -6,41 +6,150 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Editar Medicamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        div {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            color: #333;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="submit"] {
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: auto;
+            padding: 10px 20px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 
 <body>
 
-    <header>
-    	<nav>
-    	</nav>
-    </header>
+<header>
+    <nav>
+        <ul>
+            
+        </ul>
+    </nav>
+</header>
 
-    <div>
-        <h1>Editar Medicamento</h1>
-        <form action="#" method="post" th:action="@{/editMedicamento}" th:object="${medicamento}">
-            <input type="hidden" th:field="*{id}" />
-            <label>Nome:</label><br>
-            <input type="text" th:field="*{nome}" /><br>
-            <label>Dosagem:</label><br>
-            <input type="text" th:field="*{dosagem}" /><br>
-            <label>Preço:</label><br>
-            <input type="text" th:field="*{preco}" /><br>
-            <label>Quantidade:</label><br>
-            <input type="text" th:field="*{quantidade}" /><br><br>
-            <button type="submit">Salvar</button>
-            <br>
-        </form>
-        <br>
-        <a href="/newMedicamento">Novo Medicamento</a>
-        <br>
-        <a href="/medicamentos">Lista de Medicamento</a>
-        <br>
-        <a href="/">Página Principal</a>
-    </div>
+<div>
+    <h1>Editar Medicamento</h1>
+    <form action="#" method="post" th:action="@{/editMedicamento}" th:object="${medicamento}">
+        <input type="hidden" th:field="*{id}" />
+        <label>Nome:</label><br>
+        <input type="text" th:field="*{nome}" /><br>
+        <label>Dosagem:</label><br>
+        <input type="text" th:field="*{dosagem}" /><br>
+        <label>Preço:</label><br>
+        <input type="text" th:field="*{preco}" /><br>
+        <label>Quantidade:</label><br>
+        <input type="text" th:field="*{quantidade}" /><br><br>
+        <input type="submit" value="Salvar">
+    </form>
+    <br>
+    <a href="/newMedicamento" class="button">Novo Medicamento</a>
+    <br>
+    <a href="/medicamentos" class="button">Lista de Medicamento</a>
+    <br>
+    <a href="/" class="button">Página Principal</a>
+</div>
 
-    <footer>
-    </footer>
+<footer>
+</footer>
 
 </body>
-
 </html>

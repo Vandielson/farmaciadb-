@@ -1,6 +1,5 @@
 package br.com.farmaciabd.farmaciadb.model;
 
-import java.io.Serializable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,9 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
 
 @Entity
-public class Cliente implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
+public class Cliente{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
