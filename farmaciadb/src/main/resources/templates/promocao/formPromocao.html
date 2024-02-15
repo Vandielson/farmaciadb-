@@ -5,18 +5,45 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Formulário de Promoção</title>
 </head>
 
 <body>
 
     <header>
-    	<nav>
-    	</nav>
+        <nav>
+
+        </nav>
     </header>
 
     <div>
-        <h1>Form Promoção</h1>
+        <h1>Formulário de Promoção</h1>
+
+
+        <form method="post" action="/newPromocao">
+        
+   				<label for="medicamento">Medicamento:</label><br>
+	                <select id="medicamento" name="medicamentoId" required>
+	                    <option value="">Selecione um medicamento</option>
+	                    <option th:each="medicamento : ${medicamentos}" th:value="${medicamento.id}" th:text="${medicamento.nome}"></option>
+	                </select><br>
+                
+                <label for="desconto">Desconto:</label><br>
+                <input type="number" id="desconto" name="desconto" required/><br>
+                
+				<label for="dataInicio">Data de Início:</label><br>
+				<input type="date" id="dataInicio" name="dataInicio" required/><br>
+
+                
+                <label for="dataFim">Data de Fim:</label><br>
+                <input type="date" id="dataFim" name="dataFim" required/><br>
+
+                <button type="submit">Salvar</button><br>
+            
+        </form>
+        	<a href="/promocoes">Lista de Promoções</a><br>
+			<a href="/">Página Principal</a>
+
     </div>
 
     <footer>

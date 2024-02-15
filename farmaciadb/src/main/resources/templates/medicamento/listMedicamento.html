@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Lista de Medicamentos</title>
 </head>
 
 <body>
@@ -16,7 +16,35 @@
     </header>
 
     <div>
-		<h1>List Medicamento</h1>
+        <h1>Lista de Medicamentos</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Dosagem</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="medicamento : ${medicamentos}">
+                    <td th:text="${medicamento.id}"></td>
+                    <td th:text="${medicamento.nome}"></td>
+                    <td th:text="${medicamento.dosagem}"></td>
+                    <td th:text="${medicamento.preco}"></td>
+                    <td th:text="${medicamento.quantidade}"></td>
+                    <td>
+                        <a th:href="@{/editMedicamento(id=${medicamento.id})}">Editar</a>
+                        <a th:href="@{/deleteMedicamento(id=${medicamento.id})}">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/newMedicamento">Novo Medicamento</a>
+        <br>
+        <a href="/">Voltar para a Página Principal</a>
     </div>
 
     <footer>

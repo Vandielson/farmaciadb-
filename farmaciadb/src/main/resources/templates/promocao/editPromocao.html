@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Edit Promoção</title>
 </head>
 
 <body>
@@ -17,6 +17,30 @@
 
     <div>
         <h1>Edit Promoção</h1>
+        <form action="#" method="post" th:action="@{/editPromocao}" th:object="${promocao}">
+            <input type="hidden" th:field="*{id}" />
+            
+            <label for="medicamento">Medicamento:</label><br>
+            <select id="medicamento" th:field="*{medicamento.id}">
+                <option th:each="med : ${medicamentos}" th:value="${med.id}" th:text="${med.nome}"></option>
+            </select><br>
+            
+            <label for="desconto">Desconto:</label><br>
+            <input type="number" th:field="*{desconto}" /><br>
+            
+            <label for="dataInicio">Data de Início:</label><br>
+            <input type="date" th:field="*{dataInicio}" /><br>
+            
+            <label for="dataFim">Data de Fim:</label><br>
+            <input type="date" th:field="*{dataFim}" /><br>
+            
+            <br>
+            <button type="submit">Salvar</button><br>
+        </form>
+        <br>
+        <a href="/newPromocao">Nova Promoção</a><br>
+        <a href="/promocoes">Lista de Promoções</a><br>
+        <a href="/">Página Principal</a>
     </div>
 
     <footer>

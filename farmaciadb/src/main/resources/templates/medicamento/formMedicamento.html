@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Formulário de Medicamento</title>
 </head>
 
 <body>
@@ -16,7 +16,20 @@
     </header>
 
     <div>
-        <h1>Form Medicamento</h1>
+        <h1>Medicamento</h1>
+        <form action="/newMedicamento" method="post">
+            <label for="nome">Nome:</label><br>
+            <input type="text" id="nome" name="nome" required><br>
+            <label for="dosagem">Dosagem:</label><br>
+            <input type="text" id="dosagem" name="dosagem" required><br>
+            <label for="preco">Preço:</label><br>
+            <input type="number" id="preco" name="preco" step="0.01" required><br>
+            <label for="quantidade">Quantidade:</label><br>
+            <input type="number" id="quantidade" name="quantidade" required><br><br>
+            <input type="submit" value="Salvar">
+        </form>
+        
+        <a href="/">Página Principal</a>
     </div>
 
     <footer>

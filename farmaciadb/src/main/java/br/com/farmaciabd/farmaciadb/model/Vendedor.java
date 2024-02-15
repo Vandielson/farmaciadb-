@@ -1,6 +1,7 @@
 package br.com.farmaciabd.farmaciadb.model;
 
 import jakarta.persistence.Column;
+import java.io.Serializable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,7 +10,9 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Vendedor {
+public class Vendedor implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +31,12 @@ public class Vendedor {
 	private double salario;
 	
 	@NotNull
-	private double percentualComicao;
+	private double percentualComissao;
 	
-
+	public Long getId() {
+		return id;
+	}
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -56,14 +62,14 @@ public class Vendedor {
 		return salario;
 	}
 	public void setSalario(double salario) {
-		this.salario = 1400.00;
+		this.salario = percentualComissao;
 	}
 	
-	public double getPercentualComicao() {
-		return percentualComicao;
+	public double getPercentualComissao() {
+		return percentualComissao;
 	}
-	public void setPercentualComicao(double percentualComicao) {
-		this.percentualComicao = 0.02;
+	public void setPercentualComissao(double percentualComissao) {
+		this.percentualComissao = percentualComissao;
 	}
 
 }

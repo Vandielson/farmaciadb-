@@ -5,18 +5,46 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Editar Vendedor</title>
 </head>
 
 <body>
 
     <header>
-    	<nav>
-    	</nav>
+        <nav>
+        </nav>
     </header>
 
     <div>
-		<h1>Edit Vendedor</h1>
+        <h1>Editar Vendedor</h1>
+        <form action="#" method="post" th:action="@{/editVendedor}" th:object="${vendedor}">
+        
+            <input type="hidden" th:field="*{id}" />
+            
+             <label for="nome">Nome:</label><br>
+            <input type="text" th:field="*{nome}" /><br>
+            
+            <label for="cpf">CPF:</label><br>
+            <input type="text" th:field="*{cpf}" /><br>
+            
+            <label for="telefone">Telefone:</label><br>  
+            <input type="text" th:field="*{telefone}" /><br>
+            
+            <label for="salario">Salário</label><br>
+            <input type="text" th:field="*{salario}" /><br>
+            
+            <label for="percentualComissao">Percentual Comissão</label><br>
+            <input type="text" th:field="*{percentualComissao}"/><br>
+            
+            <br>
+            <button type="submit">Salvar</button><br>
+        </form>
+        <br>
+        <a href="/newVendedor">Novo Vendedor</a>
+        <br>
+        <a href="/vendedores">Lista de Vendedor</a>
+        <br>
+        <a href="/">Página Principal</a>
     </div>
 
     <footer>

@@ -1,5 +1,7 @@
 package br.com.farmaciabd.farmaciadb.model;
 
+import java.sql.Date;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Promocao {
@@ -18,15 +21,18 @@ public class Promocao {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Medicamento medicamento;
 	
-	@NotEmpty
+	@NotNull
 	private double desconto;
 	
-	@NotEmpty
-	private String dataIncio;
+	@NotNull
+	private Date dataInicio;
 	
-	@NotEmpty
-	private String dataFim;
+	@NotNull
+	private Date dataFim;
 	
+	public Long getId() {
+		return id;
+	}
 	
 	public Medicamento getMedicamento() {
 		return medicamento;
@@ -42,17 +48,17 @@ public class Promocao {
 		this.desconto = desconto;
 	}
 	
-	public String getDataIncio() {
-		return dataIncio;
+	public Date getDataInicio() {
+		return dataInicio;
 	}
-	public void setDataIncio(String dataIncio) {
-		this.dataIncio = dataIncio;
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 	
-	public String getDataFim() {
+	public Date getDataFim() {
 		return dataFim;
 	}
-	public void setDataFim(String dataFim) {
+	public void setDataFim(Date dataFim) {
 		this.dataFim = dataFim;
 	}
 	

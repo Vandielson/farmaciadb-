@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.farmaciabd.farmaciadb.model.Vendedor;
 import br.com.farmaciabd.farmaciadb.repository.VendedorRepository;
+import ch.qos.logback.core.model.Model;
 
 @Controller
 public class VendedorController {
@@ -29,13 +30,15 @@ public class VendedorController {
 
     @RequestMapping(value = "/newVendedor", method = RequestMethod.POST)
     public String form(@Valid Vendedor vendedor, BindingResult result, RedirectAttributes attributes) {
-        if (result.hasErrors()) {
+       
+    	if (result.hasErrors()) {
             attributes.addFlashAttribute("mensagem", "Verifique os campos...");
             return "redirect:/newVendedor";
         }
 
         vr.save(vendedor);
         attributes.addFlashAttribute("mensagem", "Vendedor criado com sucesso!");
+        
         return "redirect:/newVendedor";
     }
 
@@ -60,7 +63,8 @@ public class VendedorController {
     public ModelAndView editVendedor(long id) {
         Optional<Vendedor> vendedor = vr.findById(id);
         ModelAndView mv = new ModelAndView("vendedor/formVendedor");
-        mv.addObject("vendedor", vendedor);
+        mv.addObject("vendedor", vendedor.orElse(new Vendedor()));
+        mv.setViewName("vendedor/editVendedor");
         return mv;
     }
 
