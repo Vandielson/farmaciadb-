@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Editar Medicamento</title>
 </head>
 
 <body>
@@ -16,7 +16,26 @@
     </header>
 
     <div>
-        <h1>Edit Medicamento</h1>
+        <h1>Editar Medicamento</h1>
+        <form action="#" method="post" th:action="@{/editMedicamento}" th:object="${medicamento}">
+            <input type="hidden" th:field="*{id}" />
+            <label>Nome:</label><br>
+            <input type="text" th:field="*{nome}" /><br>
+            <label>Dosagem:</label><br>
+            <input type="text" th:field="*{dosagem}" /><br>
+            <label>Preço:</label><br>
+            <input type="text" th:field="*{preco}" /><br>
+            <label>Quantidade:</label><br>
+            <input type="text" th:field="*{quantidade}" /><br><br>
+            <button type="submit">Salvar</button>
+            <br>
+        </form>
+        <br>
+        <a href="/newMedicamento">Novo Medicamento</a>
+        <br>
+        <a href="/medicamentos">Lista de Medicamento</a>
+        <br>
+        <a href="/">Página Principal</a>
     </div>
 
     <footer>

@@ -6,48 +6,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Editar Cliente</title>
-
 </head>
 
 <body>
 
     <header>
-    	<nav>
-    	</nav>
+        <nav>
+        </nav>
     </header>
 
-    <div class="container">
+    <div>
         <h1>Editar Cliente</h1>
-
-
-        <form method="post" th:action="@{/editCliente}" th:object="${cliente}">
-
-
-            <div class="form-group">
-                <label for="nome">Nome:</label>
-                <input type="text" class="form-control" id="nome" th:field="*{nome}" required>
-            </div>
-
-
-            <div class="form-group">
-                <label for="cpf">CPF:</label>
-                <input type="text" class="form-control" id="cpf" th:field="*{cpf}" required>
-            </div>
-
-
-            <div class="form-group">
-                <label for="telefone">Telefone:</label>
-                <input type="text" class="form-control" id="telefone" th:field="*{telefone}" required>
-            </div>
-
-
-            <button type="submit" class="btn btn-primary">Salvar</button>
+        <form action="#" method="post" th:action="@{/editCliente}" th:object="${cliente}">
+            <input type="hidden" th:field="*{id}" />
+            
+             <label for="nome">Nome:</label><br>
+            <input type="text" th:field="*{nome}" /><br>
+            
+            <label for="cpf">CPF:</label><br>
+            <input type="text" th:field="*{cpf}" /><br>
+            
+            <label for="telefone">Telefone:</label><br>
+            <input type="text" th:field="*{telefone}" /><br>
+            
+            <br>
+            <button type="submit">Salvar</button><br>
         </form>
+        <br>
+        <a href="/newCliente">Novo Cliente</a>
+        <br>
+        <a href="/clientes">Lista de Cliente</a>
+        <br>
+        <a href="/">Página Principal</a>
     </div>
 
     <footer>
     </footer>
-
 
 </body>
 

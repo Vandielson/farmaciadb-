@@ -1,22 +1,42 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <meta charset="UTF-8">
+    <title>Formulário de Vendedor</title>
 </head>
 
 <body>
 
     <header>
-    	<nav>
-    	</nav>
+        <nav>
+        </nav>
     </header>
 
     <div>
-		<h1>Form Vendedor</h1>
+        <h1>Formulário de Vendedor</h1>
+
+        <form method="post" action="/newVendedor">
+        
+            <label for="cpf">CPF:</label><br>
+            <input type="text" id="cpf" name="cpf" required><br>
+            
+            <label for="nome">Nome:</label><br>
+            <input type="text" id="nome" name="nome" required><br>
+            
+            <label for="telefone">Telefone:</label><br>
+            <input type="text" id="telefone" name="telefone" required><br>
+            
+            <label for="salario">Salário:</label><br>
+            <input type="number" id="salario" name="salario" step="0.01" required><br>
+            
+            <label for="percentualComissao">Percentual de Comissão:</label><br>
+            <input type="number" id="percentualComissao" name="percentualComissao" step="0.01" required><br>
+            
+            <button type="submit">Cadastrar Vendedor</button>
+        </form> 
+        
+        <a href="/">Página Principal</a>
     </div>
 
     <footer>

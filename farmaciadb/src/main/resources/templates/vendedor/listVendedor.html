@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Lista de Vendedores</title>
 </head>
 
 <body>
@@ -16,7 +16,42 @@
     </header>
 
     <div>
-		<h1>List Vendedor</h1>
+        <h1>Listar Vendedores</h1>
+    </div>
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>CPF</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Salário<th>
+                    <th>Percentual Comissão<th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="vendedor : ${vendedores}">
+                    <td th:text="${vendedor.id}"></td>
+                    <td th:text="${vendedor.cpf}"></td>
+                    <td th:text="${vendedor.nome}"></td>
+                    <td th:text="${vendedor.telefone}"></td>
+                    <td th:text="${vendedor.salario}"></td>
+                    <td th:text="${vendedor.percentualComissao}"></td>
+
+                    <td>
+                        <a th:href="@{/editVendedor(id=${vendedor.id})}">Editar</a>
+                        <a th:href="@{/deleteVendedor(id=${vendedor.id})}">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/newVendedor">Novo Vendedor</a>
+        <br>
+        <a href="/">Página Principal</a>
+
     </div>
 
     <footer>
