@@ -12,148 +12,81 @@
 
 <body class="bg-light">
 
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-    <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" id="home" href="/">Farmácia BD</a></h5>
-    <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark" href="/medicamentos">MEDICAMENTOS</a>
-        <a class="p-2 text-dark" href="/clientes">CLIENTES</a>
-        <a class="p-2 text-dark" href="/promocoes">PROMOÇÕES</a>
-        <a class="p-2 text-dark" href="/vendedores">VENDEDORES</a>
-    </nav>
-</div>
+  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" id="home" href="/">Farmácia BD</a></h5>
+      <nav class="my-2 my-md-0 mr-md-3">
+          <a class="p-2 text-dark" href="/medicamentos">MEDICAMENTOS</a>
+          <a class="p-2 text-dark" href="/clientes">CLIENTES</a>
+          <a class="p-2 text-dark" href="/promocoes">PROMOÇÕES</a>
+          <a class="p-2 text-dark" href="/vendedores">VENDEDORES</a>
+      </nav>
+  </div>
 
-<div class="container">
-    <div class="py-5 text-center">
-        <h2>Formulário de Edição de Medicamento</h2>
-    </div>
+  <div class="container">
+      <div class="py-5 text-center">
+          <h2>Formulário de Edição de Medicamento</h2>
+      </div>
 
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dados do medicamento</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-                <button onclick="window.location.href='/newMedicamento'" class="btn btn-sm btn-outline-secondary">Novo Medicamento</button>
-            </div>
-        </div>
-    </div>
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Dados do medicamento</h1>
+          <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                  <button onclick="window.location.href='/newMedicamento'" class="btn btn-sm btn-outline-secondary">Novo Medicamento</button>
+              </div>
+          </div>
+      </div>
 
-    <div class="mx-auto">
-        <form class="needs-validation" novalidate th:action="@{/editMedicamento/{id}(id=${medicamento.id})}" th:method="post" th:object="${medicamento}">
+      <div class="mx-auto">
+          <form class="needs-validation" novalidate th:action="@{/editMedicamento/{id}(id=${medicamento.id})}" th:method="post" th:object="${medicamento}">
 
-            <input type="hidden" th:field="*{id}" />
+              <input type="hidden" th:field="*{id}" />
 
-            <!--            <label for="nome">Nome:</label><br>-->
-            <!--            <input type="text" th:field="*{nome}" /><br>-->
+              <div class="row">
+                  <div class="col-md-12 mb-3">
+                      <label for="nome">Nome</label>
+                      <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}" >
+                      <div class="invalid-feedback">
+                          É obrigatório inserir um nome válido.
+                      </div>
+                  </div>
+              </div>
 
-            <!--            <label for="dosagem">Dosagem:</label><br>-->
-            <!--            <input type="text" th:field="*{dosagem}" /><br>-->
+              <div class="mb-3">
+                  <label for="dosagem">Dosagem</label>
+                  <input type="text" class="form-control" id="dosagem" name="dosagem" placeholder="XXmg" th:field="*{dosagem}" >
+                  <div class="invalid-feedback">
+                      Por favor, insira uma dosagem.
+                  </div>
+              </div>
 
-            <!--            <label for="preco">Preço:</label><br>-->
-            <!--            <input type="text" th:field="*{preco}" /><br>-->
+              <div class="mb-3">
+                  <label for="preco">Preço</label>
+                  <input type="number" min="0.00" max="10000.00" step="0.10" id="preco" name="preco" th:field="*{preco}" >
+                  <div class="invalid-feedback">
+                      Por favor, insira o valor.
+                  </div>
+              </div>
 
-            <!--            <label for="quantidade">Quantidade:</label><br>-->
-            <!--            <input type="text" th:field="*{quantidade}" /><br>-->
+              <div class="mb-3">
+                  <label for="quantidade">Quantidade</label>
+                  <input type="number" id="quantidade" name="quantidade" th:field="*{quantidade}" >
+                  <div class="invalid-feedback">
+                      Por favor, insira o valor.
+                  </div>
+              </div>
 
-            <div class="row">
-                <div class="col-md-12 mb-3">
-                    <label for="nome">Nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}" >
-                    <div class="invalid-feedback">
-                        É obrigatório inserir um nome válido.
-                    </div>
-                </div>
-            </div>
+              <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Salvar</button>
 
-            <div class="mb-3">
-                <label for="dosagem">Dosagem</label>
-                <input type="text" class="form-control" id="dosagem" name="dosagem" placeholder="XXmg" th:field="*{dosagem}" >
-                <div class="invalid-feedback">
-                    Por favor, insira uma dosagem.
-                </div>
-            </div>
+          </form>
+      </div>
+  </div>
 
-            <div class="mb-3">
-                <label for="preco">Preço</label>
-                <input type="number" min="0.00" max="10000.00" step="0.10" id="preco" name="preco" th:field="*{preco}" >
-                <div class="invalid-feedback">
-                    Por favor, insira o valor.
-                </div>
-            </div>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
 
-            <div class="mb-3">
-                <label for="quantidade">Quantidade</label>
-                <input type="number" id="quantidade" name="quantidade" th:field="*{quantidade}" >
-                <div class="invalid-feedback">
-                    Por favor, insira o valor.
-                </div>
-            </div>
-
-            <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Salvar</button>
-
-        </form>
-    </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-
-</script>
+  </script>
 
 </body>
-
+  
 </html>
-
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">-->
-
-<!--<head>-->
-<!--    <meta charset="utf-8">-->
-<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
-<!--    <title>Editar Medicamento</title>-->
-<!--</head>-->
-
-<!--<body>-->
-
-<!--    <header>-->
-<!--    	<nav>-->
-<!--    	</nav>-->
-<!--    </header>-->
-
-<!--    <div>-->
-<!--        <h1>Editar Medicamento</h1>-->
-<!--        <form th:action="@{/editMedicamento/{id}(id=${medicamento.id})}" th:method="post" th:object="${medicamento}">-->
-
-<!--        <input type="hidden" th:field="*{id}" />-->
-
-<!--            <label for="nome">Nome:</label><br>-->
-<!--            <input type="text" th:field="*{nome}" /><br>-->
-
-<!--            <label for="dosagem">Dosagem:</label><br>-->
-<!--            <input type="text" th:field="*{dosagem}" /><br>-->
-
-<!--            <label for="preco">Preço:</label><br>-->
-<!--            <input type="text" th:field="*{preco}" /><br>-->
-
-<!--            <label for="quantidade">Quantidade:</label><br>-->
-<!--            <input type="text" th:field="*{quantidade}" /><br>-->
-
-<!--            <br>-->
-<!--            <button type="submit">Salvar</button>-->
-<!--            <br>-->
-<!--        </form>-->
-<!--        <br>-->
-<!--        <a href="/newMedicamento">Novo Medicamento</a>-->
-<!--        <br>-->
-<!--        <a href="/medicamentos">Lista de Medicamento</a>-->
-<!--        <br>-->
-<!--        <a href="/">Página Principal</a>-->
-<!--    </div>-->
-
-<!--    <footer>-->
-<!--    </footer>-->
-
-<!--</body>-->
-
-<!--</html>-->

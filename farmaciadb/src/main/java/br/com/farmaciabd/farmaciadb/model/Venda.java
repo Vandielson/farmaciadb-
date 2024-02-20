@@ -11,10 +11,10 @@ import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotEmpty;
 
 @Entity
-public class Venda {
+public class Venda{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
 	@OneToMany(cascade = CascadeType.ALL)
