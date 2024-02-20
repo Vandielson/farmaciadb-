@@ -127,9 +127,11 @@
     </header>
 
     <div>
-    
-     <h1>Formulário de Promoção</h1>
-     
+      
+        <h1>Formulário de Promoção</h1>
+
+        <div th:if="${mensagem != null}" th:text="${mensagem}" style="color: red;"></div>
+
         <form method="post" action="/newPromocao">
             <label for="medicamentoId">Medicamento:</label><br>
             <select id="medicamentoId" name="medicamentoId" required>

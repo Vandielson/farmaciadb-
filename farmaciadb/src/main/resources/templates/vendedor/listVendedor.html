@@ -147,8 +147,8 @@
                     <td th:text="${vendedor.percentualComissao}"></td>
 
                     <td>
-                        <a th:href="@{/editVendedor(id=${vendedor.id})}" class="button">Editar</a>
-                        <a th:href="@{/deleteVendedor(id=${vendedor.id})}" class="button">Excluir</a>
+                        <a th:href="@{/formEditVendedor/{id}(id=${vendedor.id})}">Editar</a>
+                        <a th:href="@{/deleteVendedor/{id}(id=${vendedor.id})}">Excluir</a>
                     </td>
                 </tr>
             </tbody>
