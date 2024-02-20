@@ -5,38 +5,110 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Formulário de Cliente</title>
+    <title>CLIENTE - Farmácia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="styleCadastro.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-light">
 
-    <header>
-        <nav>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" id="home" href="/">Farmácia BD</a></h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="/clientes">CLIENTES</a>
+            <a class="p-2 text-dark" href="/medicamentos">MEDICAMENTOS</a>
+            <a class="p-2 text-dark" href="/promocoes">PROMOÇÕES</a>
+            <a class="p-2 text-dark" href="/vendedores">VENDEDORES</a>
         </nav>
-    </header>
-
-    <div>
-        <h1>Formulário Cliente</h1>
-
-        <form method="post" action="/newCliente">
-        
-                <label for="cpf">CPF:</label> <br>
-                <input type="text" id="cpf" name="cpf" required><br>
-                
-                <label for="nome">Nome:</label><br>
-                <input type="text" id="nome" name="nome" required><br>
-                
-                <label for="telefone">Telefone:</label> <br>
-                <input type="text" id="telefone" name="telefone" required> <br>
-            <button type="submit">Cadastrar Cliente</button>
-            <br>
-        </form>
-         <a href="/">Página Principal</a>
-        
     </div>
 
-    <footer>
-    </footer>
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>Formulário de Cadastro de Cliente</h2>
+        </div>
+
+        <div class="mx-auto">
+            <h4 class="mb-3">Dados do cliente</h4>
+            <form class="needs-validation" novalidate method="post" action="/newCliente">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="nome">Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required>
+                        <div class="invalid-feedback">
+                            É obrigatório inserir um nome válido.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="cpf">CPF</label>
+                    <input type="text" class="form-control" id="cpf" name="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" placeholder="000.000.000-00" required>
+                    <div class="invalid-feedback">
+                        Por favor, insira um CPF válido.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="(xx) xxxxx-xxxx" required> <br>
+                    <div class="invalid-feedback">
+                        Por favor, insira seu número de telefone.
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="autoriza-info">
+                    <label class="custom-control-label" for="autoriza-info">Cliente autoriza cadastro e uso de seus dados.</label>
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#cpf').on('input', function () {
+                var cpf = $(this).val().replace(/\D/g, ''); // Remove não números
+                if (cpf.length > 11) {
+                    cpf = cpf.substring(0, 11); // Limita a 11 dígitos
+                }
+                if (cpf.length > 3) {
+                    cpf = cpf.replace(/(\d{3})/, '$1.');
+                }
+                if (cpf.length > 7) {
+                    cpf = cpf.replace(/(\d{3})\.(\d{3})/, '$1.$2.');
+                }
+                if (cpf.length > 11) {
+                    cpf = cpf.replace(/(\d{3})\.(\d{3})\.(\d{3})/, '$1.$2.$3-');
+                }
+                $(this).val(cpf);
+            });
+
+            $('#telefone').on('input', function () {
+                var telefone = $(this).val().replace(/\D/g, ''); // Remove não números
+                if (telefone.length > 11) {
+                    telefone = telefone.substring(0, 11); // Limita a 11 dígitos
+                }
+                if (telefone.length > 2) {
+                    telefone = '(' + telefone.substring(0, 2) + ')' + telefone.substring(2);
+                }
+                if (telefone.length > 9) {
+                    telefone = telefone.substring(0, 9) + '-' + telefone.substring(9);
+                }
+                $(this).val(telefone);
+            });
+
+            $('form').submit(function(event) {
+                if (!$('#autoriza-info').prop('checked')) {
+                    alert('Você deve autorizar o cadastro e uso dos seus dados.');
+                    event.preventDefault(); // Impede o envio do formulário
+                }
+            });
+        });
+    </script>
 
 </body>
 

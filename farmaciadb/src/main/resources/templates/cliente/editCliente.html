@@ -5,43 +5,110 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Editar Cliente</title>
+    <title>CLIENTE - Farmácia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="styleEdicao.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-light">
 
-    <header>
-        <nav>
-        </nav>
-    </header>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" id="home" href="/">Farmácia BD</a></h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="/clientes">CLIENTES</a>
+        <a class="p-2 text-dark" href="/medicamentos">MEDICAMENTOS</a>
+        <a class="p-2 text-dark" href="/promocoes">PROMOÇÕES</a>
+        <a class="p-2 text-dark" href="/vendedores">VENDEDORES</a>
+    </nav>
+</div>
 
-    <div>
-        <h1>Editar Cliente</h1>
-        <form action="#" method="post" th:action="@{/editCliente}" th:object="${cliente}">
-            <input type="hidden" th:field="*{id}" />
-            
-             <label for="nome">Nome:</label><br>
-            <input type="text" th:field="*{nome}" /><br>
-            
-            <label for="cpf">CPF:</label><br>
-            <input type="text" th:field="*{cpf}" /><br>
-            
-            <label for="telefone">Telefone:</label><br>
-            <input type="text" th:field="*{telefone}" /><br>
-            
-            <br>
-            <button type="submit">Salvar</button><br>
-        </form>
-        <br>
-        <a href="/newCliente">Novo Cliente</a>
-        <br>
-        <a href="/clientes">Lista de Cliente</a>
-        <br>
-        <a href="/">Página Principal</a>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>Formulário de Edição de Cliente</h2>
     </div>
 
-    <footer>
-    </footer>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dados do cliente</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button onclick="window.location.href='/newCliente'" class="btn btn-sm btn-outline-secondary">Novo Cliente</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mx-auto">
+        <form class="needs-validation" novalidate th:action="@{/editCliente/{id}(id=${cliente.id})}" th:method="post" th:object="${cliente}">
+
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}" >
+                    <div class="invalid-feedback">
+                        É obrigatório inserir um nome válido.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="cpf">CPF</label>
+                <input type="text" class="form-control" id="cpf" name="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" placeholder="000.000.000-00" th:field="*{cpf}" >
+                <div class="invalid-feedback">
+                    Por favor, insira um CPF válido.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="telefone">Telefone</label>
+                <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="(xx) xxxxx-xxxx" th:field="*{telefone}" > <br>
+                <div class="invalid-feedback">
+                    Por favor, insira seu número de telefone.
+                </div>
+            </div>
+
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Salvar</button>
+
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#cpf').on('input', function () {
+            var cpf = $(this).val().replace(/\D/g, ''); // Remove não números
+            if (cpf.length > 11) {
+                cpf = cpf.substring(0, 11); // Limita a 11 dígitos
+            }
+            if (cpf.length > 3) {
+                cpf = cpf.replace(/(\d{3})/, '$1.');
+            }
+            if (cpf.length > 7) {
+                cpf = cpf.replace(/(\d{3})\.(\d{3})/, '$1.$2.');
+            }
+            if (cpf.length > 11) {
+                cpf = cpf.replace(/(\d{3})\.(\d{3})\.(\d{3})/, '$1.$2.$3-');
+            }
+            $(this).val(cpf);
+        });
+
+        $('#telefone').on('input', function () {
+            var telefone = $(this).val().replace(/\D/g, ''); // Remove não números
+            if (telefone.length > 11) {
+                telefone = telefone.substring(0, 11); // Limita a 11 dígitos
+            }
+            if (telefone.length > 2) {
+                telefone = '(' + telefone.substring(0, 2) + ')' + telefone.substring(2);
+            }
+            if (telefone.length > 9) {
+                telefone = telefone.substring(0, 9) + '-' + telefone.substring(9);
+            }
+            $(this).val(telefone);
+        });
+    });
+</script>
 
 </body>
 

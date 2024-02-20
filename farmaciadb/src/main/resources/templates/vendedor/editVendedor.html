@@ -17,9 +17,9 @@
 
     <div>
         <h1>Editar Vendedor</h1>
-        <form action="#" method="post" th:action="@{/editVendedor}" th:object="${vendedor}">
-        
-            <input type="hidden" th:field="*{id}" />
+        <form th:action="@{/editVendedor/{id}(id=${vendedor.id})}" th:method="post" th:object="${vendedor}">
+
+        <input type="hidden" th:field="*{id}" />
             
              <label for="nome">Nome:</label><br>
             <input type="text" th:field="*{nome}" /><br>

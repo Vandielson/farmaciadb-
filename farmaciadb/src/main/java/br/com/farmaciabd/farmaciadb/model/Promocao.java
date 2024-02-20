@@ -18,7 +18,7 @@ public class Promocao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Medicamento medicamento;
 	
 	@NotNull

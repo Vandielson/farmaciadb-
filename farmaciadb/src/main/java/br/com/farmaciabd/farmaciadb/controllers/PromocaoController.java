@@ -44,9 +44,9 @@ public class PromocaoController {
         }
 
         // Buscar o medicamento no banco de dados pelo ID
-        Optional<Medicamento> medicamentoOptional = mr.findById(medicamentoId);
+        var medicamentoOptional = mr.findById(medicamentoId);
         if (medicamentoOptional.isPresent()) {
-            Medicamento medicamento = medicamentoOptional.get();
+            var medicamento = medicamentoOptional.get();
             // Associar o medicamento à promoção
             promocao.setMedicamento(medicamento);
         } else {
@@ -55,10 +55,22 @@ public class PromocaoController {
             return "redirect:/newPromocao";
         }
 
+        var dateInicio = promocao.getDataInicio().toLocalDate();
+        var dataAtual = java.time.LocalDate.now();
+        var dateFim = promocao.getDataFim().toLocalDate();
+        if(dateFim.isBefore(dateInicio) || dateFim.isEqual(dateInicio)){
+            attributes.addFlashAttribute("mensagem", "Data final deve ser maior que a data inicial...");
+            return "redirect:/newPromocao";
+        }
+        if(dateInicio.isBefore(dataAtual)){
+            attributes.addFlashAttribute("mensagem", "Data inicial deve ser maior ou igual a data atual...");
+            return "redirect:/newPromocao";
+        }
+
         pr.save(promocao);
         attributes.addFlashAttribute("mensagem", "Promoção criada com sucesso!");
 
-        return "redirect:/newPromocao";
+        return "redirect:/promocoes";
     }
 
     // LIST

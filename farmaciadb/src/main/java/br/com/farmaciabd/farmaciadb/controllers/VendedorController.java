@@ -7,8 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -39,7 +38,7 @@ public class VendedorController {
         vr.save(vendedor);
         attributes.addFlashAttribute("mensagem", "Vendedor criado com sucesso!");
         
-        return "redirect:/newVendedor";
+        return "redirect:/vendedores";
     }
 
     // LIST
@@ -52,31 +51,53 @@ public class VendedorController {
     }
 
     // DELETE
-    @RequestMapping("/deleteVendedor")
-    public String deleteVendedor(long id) {
+    @RequestMapping("/deleteVendedor/{id}")
+    public String deleteVendedor(@PathVariable Long id) {
         vr.deleteById(id);
         return "redirect:/vendedores";
     }
 
     // UPDATE
-    @RequestMapping(value = "/editVendedor", method = RequestMethod.GET)
-    public ModelAndView editVendedor(long id) {
-        Optional<Vendedor> vendedor = vr.findById(id);
-        ModelAndView mv = new ModelAndView("vendedor/formVendedor");
-        mv.addObject("vendedor", vendedor.orElse(new Vendedor()));
-        mv.setViewName("vendedor/editVendedor");
+    @GetMapping("/formEditVendedor/{id}")
+    public ModelAndView editVendedor(@PathVariable Long id) {
+        var vendedor = vr.findById(id);
+        var mv = new ModelAndView();
+
+        if (vendedor.isPresent()) {
+            mv.addObject("vendedor", vendedor.get());
+            mv.setViewName("vendedor/editVendedor");
+        } else {
+            mv.setViewName("redirect:/vendedores");
+            mv.addObject("mensagem", "Vendedor não encontrado!");
+        }
+
         return mv;
     }
 
-    @RequestMapping(value = "/editVendedor", method = RequestMethod.POST)
-    public String updateVendedor(@Valid Vendedor vendedor, BindingResult result, RedirectAttributes attributes) {
+    @PostMapping("/editVendedor/{id}")
+    public String updateVendedor(@PathVariable Long id, @Valid Vendedor vendedor, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             attributes.addFlashAttribute("mensagem", "Verifique os campos...");
             return "redirect:/editVendedor";
         }
 
-        vr.save(vendedor);
-        attributes.addFlashAttribute("mensagem", "Vendedor atualizado com sucesso!");
+        var vendedorExistente = vr.findById(id);
+
+        if(vendedorExistente.isPresent()) {
+
+            var vendedorAtualizado = vendedorExistente.get();
+            vendedorAtualizado.setCpf(vendedor.getCpf());
+            vendedorAtualizado.setNome(vendedor.getNome());
+            vendedorAtualizado.setPercentualComissao(vendedor.getPercentualComissao());
+            vendedorAtualizado.setSalario(vendedor.getSalario());
+            vendedorAtualizado.setTelefone(vendedor.getTelefone());
+
+            vr.save(vendedorAtualizado);
+            attributes.addFlashAttribute("mensagem", "Vendedor atualizado com sucesso!");
+        }else{
+            attributes.addFlashAttribute("mensagem", "Vendedor não encontrado!");
+        }
+
         return "redirect:/vendedores";
     }
 }

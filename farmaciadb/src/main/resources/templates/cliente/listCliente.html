@@ -5,23 +5,36 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lista de Clientes</title>
+    <title>CLIENTES - Farmácia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="styleEdicao.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-light">
 
-    <header>
-    	<nav>
-    	</nav>
-    </header>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" id="home" href="/">Farmácia BD</a></h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="/medicamentos">MEDICAMENTOS</a>
+        <a class="p-2 text-dark" href="/promocoes">PROMOÇÕES</a>
+        <a class="p-2 text-dark" href="/vendedores">VENDEDORES</a>
+    </nav>
+</div>
 
-    <div>
-        <h1>Listar Clientes</h1>
-    </div>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Clientes Cadastrados</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group mr-2">
+                    <button onclick="window.location.href='/newCliente'" class="btn btn-sm btn-outline-secondary">Novo Cliente</button>
+                </div>
+            </div>
+        </div>
 
-    <div>
-        <table>
-            <thead>
+        <h2>clientes</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
                 <tr>
                     <th>ID</th>
                     <th>CPF</th>
@@ -29,28 +42,24 @@
                     <th>Telefone</th>
                     <th>Ações</th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr th:each="cliente : ${clientes}">
-                    <td th:text="${cliente.id}"></td>
-                    <td th:text="${cliente.cpf}"></td>
-                    <td th:text="${cliente.nome}"></td>
-                    <td th:text="${cliente.telefone}"></td>
-                    <td>
-                        <a th:href="@{/editCliente(id=${cliente.id})}">Editar</a>
-                        <a th:href="@{/deleteCliente(id=${cliente.id})}">Excluir</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <a href="/newCliente">Novo Cliente</a>
-        <br>
-        <a href="/">Página Principal</a>
+                </thead>
+                <tbody>
+                    <tr th:each="cliente : ${clientes}">
+                        <td th:text="${cliente.id}"></td>
+                        <td th:text="${cliente.cpf}"></td>
+                        <td th:text="${cliente.nome}"></td>
+                        <td th:text="${cliente.telefone}"></td>
+                        <td>
+                            <a th:href="@{/formEditCliente/{id}(id=${cliente.id})}">Editar</a>
+                            <a th:href="@{/deleteCliente/{id}(id=${cliente.id})}">Excluir</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
 
-    </div>
-
-    <footer>
-    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
 </body>
 

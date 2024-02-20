@@ -1,12 +1,9 @@
 package br.com.farmaciabd.farmaciadb.controllers;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -37,7 +34,7 @@ public class ClienteController {
         cr.save(cliente);
         attributes.addFlashAttribute("mensagem", "Cliente criado com sucesso!");
 
-        return "redirect:/newCliente";
+        return "redirect:/clientes";
     }
 
     // LIST
@@ -50,31 +47,50 @@ public class ClienteController {
     }
 
     // DELETE
-    @RequestMapping("/deleteCliente")
-    public String deleteCliente(long id) {
+    @RequestMapping("/deleteCliente/{id}")
+    public String deleteCliente(@PathVariable Long id) {
        cr.deleteById(id);
        return "redirect:/clientes";
     }
 
     // UPDATE
-    @RequestMapping(value = "/editCliente", method = RequestMethod.GET)
-    public ModelAndView editCliente(long id) {
-        Optional<Cliente> cliente = cr.findById(id);
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("cliente", cliente.orElse(null));
-        mv.setViewName("cliente/editCliente");
+    @GetMapping("/formEditCliente/{id}")
+    public ModelAndView editCliente(@PathVariable Long id) {
+        var cliente = cr.findById(id);
+        var mv = new ModelAndView();
+
+        if(cliente.isPresent()){
+            mv.addObject("cliente", cliente.get());
+            mv.setViewName("cliente/editCliente");
+        } else {
+            mv.setViewName("redirect:/clientes");
+            mv.addObject("mensagem", "Cliente não encontrado");
+        }
         return mv;
     }
 
-    @RequestMapping(value = "/editCliente", method = RequestMethod.POST)
-    public String updateCliente(@Valid Cliente cliente, BindingResult result, RedirectAttributes attributes) {
+    @PostMapping("/editCliente/{id}")
+    public String updateCliente(@PathVariable Long id, @Valid Cliente cliente, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             attributes.addFlashAttribute("mensagem", "Verifique os campos...");
             return "redirect:/clientes";
         }
 
-        cr.save(cliente);
-        attributes.addFlashAttribute("mensagem", "Cliente atualizado com sucesso!");
+        var clienteExistente = cr.findById(id);
+
+        if (clienteExistente.isPresent()) {
+
+            var clienteAtualizado = clienteExistente.get();
+            clienteAtualizado.setCpf(cliente.getCpf());
+            clienteAtualizado.setNome(cliente.getNome());
+            clienteAtualizado.setTelefone(cliente.getTelefone());
+
+            cr.save(clienteAtualizado);
+            attributes.addFlashAttribute("mensagem", "Cliente atualizado com sucesso!");
+        } else {
+            attributes.addFlashAttribute("mensagem", "Cliente não encontrado");
+        }
+
         return "redirect:/clientes";
     }
 }
