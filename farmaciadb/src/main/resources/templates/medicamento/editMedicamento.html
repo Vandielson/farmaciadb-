@@ -90,10 +90,17 @@
         var preco = $('#preco').val();
         var quantidade = $('#quantidade').val();
 
-        if (!nome || parseFloat(dosagem) < 0.10 || parseFloat(dosagem) > 100.00 || 
+        // Verificar se os campos estão vazios
+        if (!nome.trim() || !dosagem.trim() || !preco.trim() || !quantidade.trim()) {
+            alert('Por favor, preencha todos os campos.');
+            return false;
+        }
+
+        // Verificar se os campos estão no formato correto
+        if (parseFloat(dosagem) < 0.10 || parseFloat(dosagem) > 100.00 || 
             parseFloat(preco) < 0.10 || parseFloat(preco) > 10000.00 || 
             parseInt(quantidade) <= 0) {
-            $('#medicamentoForm').addClass('was-validated');
+            alert('Por favor, preencha os campos com valores válidos.');
             return false;
         }
 
@@ -104,10 +111,19 @@
             $('#dosagem').val(dosagem);
         }
 
-        $('#medicamentoForm').removeClass('was-validated');
         return true;
     }
+    
+    $(document).ready(function () {
+        $('form').submit(function(event) {
+            if (!validarMedicamento()) {
+                event.preventDefault(); // Impede o envio do formulário
+            }
+        });
+    });
 </script>
+
+
 
 </body>
 
