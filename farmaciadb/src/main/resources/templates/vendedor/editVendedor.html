@@ -5,157 +5,142 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Editar Vendedor</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        nav ul li {
-            display: inline;
-            margin-right: 10px;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        footer p {
-            margin: 0;
-        }
-
-        div {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        form {
-            margin-top: 20px;
-            text-align: center;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        label {
-            color: #333;
-            margin-top: 10px;
-            display: block;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        input[type="submit"] {
-            padding: 8px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        input[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: auto;
-            padding: 10px 20px;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-
-        a {
-            text-decoration: none;
-            color: #fff;
-            background-color: #007bff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        a:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>VENDEDOR - Farmácia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="styleEdicao.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-light">
 
-    <header>
-        <nav>
-        </nav>
-    </header>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" id="home" href="/">Farmácia BD</a></h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="/clientes">CLIENTES</a>
+        <a class="p-2 text-dark" href="/medicamentos">MEDICAMENTOS</a>
+        <a class="p-2 text-dark" href="/promocoes">PROMOÇÕES</a>
+        <a class="p-2 text-dark" href="/vendedores">VENDEDORES</a>
+    </nav>
+</div>
 
-    <div>
-        <h1>Editar Vendedor</h1>
-        <form th:action="@{/editVendedor/{id}(id=${vendedor.id})}" th:method="post" th:object="${vendedor}">
-
-        <input type="hidden" th:field="*{id}" />
-            
-             <label for="nome">Nome:</label><br>
-            <input type="text" th:field="*{nome}" /><br>
-            
-            <label for="cpf">CPF:</label><br>
-            <input type="text" th:field="*{cpf}" /><br>
-            
-            <label for="telefone">Telefone:</label><br>  
-            <input type="text" th:field="*{telefone}" /><br>
-            
-            <label for="salario">Salário</label><br>
-            <input type="text" th:field="*{salario}" /><br>
-            
-            <label for="percentualComissao">Percentual Comissão</label><br>
-            <input type="text" th:field="*{percentualComissao}"/><br><br>
-            <input type="submit" value="Salvar">
-            
-        </form>
-        <br>
-        <a href="/newVendedor">Novo Vendedor</a>
-        <br>
-        <a href="/vendedores">Lista de Vendedor</a>
-        <br>
-        <a href="/">Página Principal</a>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>Formulário de Edição de Vendedor</h2>
     </div>
 
-    <footer>
-    </footer>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dados do vendedor</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button onclick="window.location.href='/newVendedor'" class="btn btn-sm btn-outline-secondary">Novo Vendedor</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mx-auto">
+        <form class="needs-validation" novalidate th:action="@{/editVendedor/{id}(id=${vendedor.id})}" th:method="post" th:object="${vendedor}">
+
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}" >
+                    <div class="invalid-feedback">
+                        É obrigatório inserir um nome válido.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="cpf">CPF</label>
+                <input type="text" class="form-control" id="cpf" name="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" placeholder="000.000.000-00" th:field="*{cpf}" >
+                <div class="invalid-feedback">
+                    Por favor, insira um CPF válido.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="telefone">Telefone</label>
+                <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="(xx) xxxxx-xxxx" th:field="*{telefone}" > <br>
+                <div class="invalid-feedback">
+                    Por favor, insira seu número de telefone.
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="salario">Salário</label>
+                    <input type="text" class="form-control" id="salario" name="salario" th:field="*{salario}" >
+                    <div class="invalid-feedback">
+                        Por favor, insira um salário válido.
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="percentualComissao">Percentual de Comissão</label>
+                    <input type="text" class="form-control" id="percentualComissao" name="percentualComissao" th:field="*{percentualComissao}" >
+                    <div class="invalid-feedback">
+                        Por favor, insira um percentual de comissão válido.
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Salvar</button>
+
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#cpf').on('input', function () {
+            var cpf = $(this).val().replace(/\D/g, ''); // Remove não números
+            if (cpf.length > 11) {
+                cpf = cpf.substring(0, 11); // Limita a 11 dígitos
+            }
+            if (cpf.length > 3) {
+                cpf = cpf.replace(/(\d{3})/, '$1.');
+            }
+            if (cpf.length > 7) {
+                cpf = cpf.replace(/(\d{3})\.(\d{3})/, '$1.$2.');
+            }
+            if (cpf.length > 11) {
+                cpf = cpf.replace(/(\d{3})\.(\d{3})\.(\d{3})/, '$1.$2.$3-');
+            }
+            $(this).val(cpf);
+        });
+
+        $('#telefone').on('input', function () {
+            var telefone = $(this).val().replace(/\D/g, ''); // Remove não números
+            if (telefone.length > 11) {
+                telefone = telefone.substring(0, 11); // Limita a 11 dígitos
+            }
+            if (telefone.length > 2) {
+                telefone = '(' + telefone.substring(0, 2) + ')' + telefone.substring(2);
+            }
+            if (telefone.length > 9) {
+                telefone = telefone.substring(0, 9) + '-' + telefone.substring(9);
+            }
+            $(this).val(telefone);
+        });
+
+        $('form').submit(function (event) {
+            var nome = $('#nome').val();
+            var cpf = $('#cpf').val().replace(/\D/g, '');
+            var telefone = $('#telefone').val().replace(/\D/g, '');
+            var salario = $('#salario').val();
+            var percentualComissao = $('#percentualComissao').val();
+
+            if (!nome || nome.trim() === "" || cpf.length !== 11 || telefone.length !== 11 || 
+            		!salario || parseFloat(salario) <= 0 || 
+            		!percentualComissao || parseFloat(percentualComissao) <= 0) {
+                alert('Por favor, preencha todos os campos corretamente.');
+                event.preventDefault();
+            }
+        });
+    });
+</script>
 
 </body>
 
