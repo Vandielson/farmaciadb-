@@ -18,7 +18,7 @@ import ch.qos.logback.core.model.Model;
 @Controller
 public class VendedorController {
 
-	@Autowired
+    @Autowired
     private VendedorRepository vr;
 
     // NEW
@@ -30,7 +30,7 @@ public class VendedorController {
     @RequestMapping(value = "/newVendedor", method = RequestMethod.POST)
     public String form(@Valid Vendedor vendedor, BindingResult result, RedirectAttributes attributes) {
        
-    	if (result.hasErrors()) {
+        if (result.hasErrors()) {
             attributes.addFlashAttribute("mensagem", "Verifique os campos...");
             return "redirect:/newVendedor";
         }
