@@ -5,129 +5,34 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lista de Promoções</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        nav ul li {
-            display: inline;
-            margin-right: 10px;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        footer p {
-            margin: 0;
-        }
-
-        div {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        table {
-            width: 80%;
-            margin: 0 auto;
-            border-collapse: collapse;
-            background-color: #fff;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        tr:hover {
-            background-color: #f2f2f2;
-        }
-
-        td a {
-            text-decoration: none;
-            color: #fff;
-            background-color: #007bff;
-            padding: 6px 12px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            display: inline-block;
-        }
-
-        td a:hover {
-            background-color: #0056b3;
-        }
-
-        a {
-            text-decoration: none;
-            color: #fff;
-            background-color: #007bff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        a:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>Promoções - Farmácia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="bg-light">
 
-<header>
-    <nav>
-        <ul>
-          
-        </ul>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" id="home" href="/">Farmácia BD</a></h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+  		<a class="p-2 text-dark" href="/clientes">CLIENTES</a>
+        <a class="p-2 text-dark" href="/medicamentos">MEDICAMENTOS</a>
+        <a class="p-2 text-dark" href="/vendedores">VENDEDORES</a>
     </nav>
-</header>
+</div>
 
-<div>
-    <h1>Promoções</h1>
-    <table>
-        <thead>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Promoções Cadastradas</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button onclick="window.location.href='/newPromocao'" class="btn btn-sm btn-outline-secondary">Nova Promoção</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
             <tr>
                 <th>ID</th>
                 <th>Medicamento</th>
@@ -136,30 +41,28 @@
                 <th>Data de Fim</th>
                 <th>Ações</th>
             </tr>
-        </thead>
-        <tbody>
-            <tr th:each="promocao : ${promocoes}">
-                <td th:text="${promocao.id}"></td>
-                <td th:if="${promocao.medicamento != null}" th:text="${promocao.medicamento.nome}"></td>
-                <td th:if="${promocao.medicamento == null}">Medicamento não especificado</td>
-                <td th:text="${promocao.desconto}"></td>
-                <td th:text="${#dates.format(promocao.dataInicio, 'dd/MM/yyyy')}"></td>
-                <td th:text="${#dates.format(promocao.dataFim, 'dd/MM/yyyy')}"></td>
-                <td>
-                    <a href="@{/editPromocao(id=${promocao.id})}" class="button">Editar</a>
-                    <a href="@{/deletePromocao(id=${promocao.id})}" class="button">Excluir</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <a href="/newPromocao" class="button">Nova Promoção</a><br>
-    <a href="/" class="button">Página Principal</a>
-</div>
+            </thead>
+            <tbody>
+                <tr th:each="promocao : ${promocoes}">
+                    <td th:text="${promocao.id}"></td>
+                    <td th:if="${promocao.medicamento != null}" th:text="${promocao.medicamento.nome}"></td>
+                    <td th:text="${promocao.desconto}"></td>
+                    <td th:text="${#dates.format(promocao.dataInicio, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${#dates.format(promocao.dataFim, 'dd/MM/yyyy')}"></td>
+                    
+					<td>
+					    <a th:href="@{/editPromocao/{id}(id=${promocao.id})}">Editar</a>
+					    <a th:href="@{/deletePromocao/{id}(id=${promocao.id})}">Excluir</a>
+					</td>
 
-<footer>
-</footer>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
 </body>
 
 </html>
-

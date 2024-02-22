@@ -75,40 +75,51 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#cpf').on('input', function () {
-            var cpf = $(this).val().replace(/\D/g, ''); // Remove não números
-            if (cpf.length > 11) {
-                cpf = cpf.substring(0, 11); // Limita a 11 dígitos
-            }
-            if (cpf.length > 3) {
-                cpf = cpf.replace(/(\d{3})/, '$1.');
-            }
-            if (cpf.length > 7) {
-                cpf = cpf.replace(/(\d{3})\.(\d{3})/, '$1.$2.');
-            }
-            if (cpf.length > 11) {
-                cpf = cpf.replace(/(\d{3})\.(\d{3})\.(\d{3})/, '$1.$2.$3-');
-            }
-            $(this).val(cpf);
-        });
-
-        $('#telefone').on('input', function () {
-            var telefone = $(this).val().replace(/\D/g, ''); // Remove não números
-            if (telefone.length > 11) {
-                telefone = telefone.substring(0, 11); // Limita a 11 dígitos
-            }
-            if (telefone.length > 2) {
-                telefone = '(' + telefone.substring(0, 2) + ')' + telefone.substring(2);
-            }
-            if (telefone.length > 9) {
-                telefone = telefone.substring(0, 9) + '-' + telefone.substring(9);
-            }
-            $(this).val(telefone);
-        });
-    });
-</script>
+	<script>
+	    $(document).ready(function () {
+	        $('#cpf').on('input', function () {
+	            var cpf = $(this).val().replace(/\D/g, ''); // Remove não números
+	            if (cpf.length > 11) {
+	                cpf = cpf.substring(0, 11); // Limita a 11 dígitos
+	            }
+	            if (cpf.length > 3) {
+	                cpf = cpf.replace(/(\d{3})/, '$1.');
+	            }
+	            if (cpf.length > 7) {
+	                cpf = cpf.replace(/(\d{3})\.(\d{3})/, '$1.$2.');
+	            }
+	            if (cpf.length > 11) {
+	                cpf = cpf.replace(/(\d{3})\.(\d{3})\.(\d{3})/, '$1.$2.$3-');
+	            }
+	            $(this).val(cpf);
+	        });
+	
+	        $('#telefone').on('input', function () {
+	            var telefone = $(this).val().replace(/\D/g, ''); // Remove não números
+	            if (telefone.length > 11) {
+	                telefone = telefone.substring(0, 11); // Limita a 11 dígitos
+	            }
+	            if (telefone.length > 2) {
+	                telefone = '(' + telefone.substring(0, 2) + ')' + telefone.substring(2);
+	            }
+	            if (telefone.length > 9) {
+	                telefone = telefone.substring(0, 9) + '-' + telefone.substring(9);
+	            }
+	            $(this).val(telefone);
+	        });
+	
+	        $('form').submit(function(event) {
+	            var nome = $('#nome').val();
+	            var cpf = $('#cpf').val().replace(/\D/g, '');
+	            var telefone = $('#telefone').val().replace(/\D/g, '');
+	
+	            if (!nome || nome.trim() === "" || cpf.length !== 11 || telefone.length !== 11) {
+	                alert('Por favor, preencha todos os campos corretamente.');
+	                event.preventDefault(); // Impede o envio do formulário
+	            }
+	        });
+	    });
+	</script>
 
 </body>
 

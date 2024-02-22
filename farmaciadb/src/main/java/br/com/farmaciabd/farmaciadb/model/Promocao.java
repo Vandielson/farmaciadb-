@@ -2,7 +2,6 @@ package br.com.farmaciabd.farmaciadb.model;
 
 import java.sql.Date;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

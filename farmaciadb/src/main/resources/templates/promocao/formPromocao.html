@@ -5,155 +5,88 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Formulário de Promoção</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        nav ul li {
-            display: inline;
-            margin-right: 10px;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        footer p {
-            margin: 0;
-        }
-
-        div {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        form {
-            margin-top: 20px;
-            text-align: center;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        label {
-            color: #333;
-            margin-top: 10px;
-            display: block;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        input[type="submit"] {
-            padding: 8px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        input[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: auto;
-            padding: 10px 20px;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-
-        a {
-            text-decoration: none;
-            color: #fff;
-            background-color: #007bff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        a:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>PROMOÇÕES - Farmácia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="styleCadastro.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-light">
 
-    <header>
-       <nav>
-        <ul>
-            <!-- You can add navigation items here if needed -->
-        </ul>
-    </nav>
-    </header>
-
-    <div>
-      
-        <h1>Formulário de Promoção</h1>
-
-        <div th:if="${mensagem != null}" th:text="${mensagem}" style="color: red;"></div>
-
-        <form method="post" action="/newPromocao">
-            <label for="medicamentoId">Medicamento:</label><br>
-            <select id="medicamentoId" name="medicamentoId" required>
-                <option value="">Selecione um medicamento</option>
-                <option th:each="medicamento : ${medicamentos}" th:value="${medicamento.id}" th:text="${medicamento.nome + ' - ' + medicamento.dosagem}"></option>
-            </select><br>
-            <label for="desconto">Desconto:</label><br>
-            <input type="number" id="desconto" name="desconto" required/><br>
-            <label for="dataInicio">Data de Início:</label><br>
-            <input type="date" id="dataInicio" name="dataInicio" required/><br>
-            <label for="dataFim">Data de Fim:</label><br>
-            <input type="date" id="dataFim" name="dataFim" required/><br><br>
-            <input type="submit" value="Salvar">
-        </form>
-
-        <a href="/promocoes">Lista de Promoções</a><br>
-        <a href="/">Página Principal</a>
-
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" id="home" href="/">Farmácia BD</a></h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="/clientes">CLIENTES</a>
+            <a class="p-2 text-dark" href="/medicamentos">MEDICAMENTOS</a>
+            <a class="p-2 text-dark" href="/vendedores">VENDEDORES</a>
+        </nav>
     </div>
 
-    <footer>
-    </footer>
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>Formulário de Cadastro de Promoção</h2>
+        </div>
+
+        <div class="mx-auto">
+            <h4 class="mb-3">Dados da promoção</h4>
+            <form class="needs-validation" novalidate method="post" action="/newPromocao">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="medicamento">Medicamento</label>
+                        <select class="custom-select d-block w-100" id="medicamento" name="medicamentoId" required>
+                            <option value="">Selecione um medicamento...</option>
+                            <option th:each="medicamento : ${medicamentos}" th:value="${medicamento.id}" th:text="${medicamento.nome}"></option>
+                        </select>
+                        <div class="invalid-feedback">
+                            É obrigatório selecionar um medicamento.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="desconto">Desconto (%)</label>
+                    <input type="number" class="form-control" id="desconto" name="desconto" min="0" step="0.01" required>
+                    <div class="invalid-feedback">
+                        Por favor, insira um desconto válido.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="dataInicio">Data de Início</label>
+                    <input type="date" class="form-control" id="dataInicio" name="dataInicio" required th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}">
+                    <div class="invalid-feedback">
+                        Por favor, insira uma data de início válida.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="dataFim">Data de Término</label>
+                    <input type="date" class="form-control" id="dataFim" name="dataFim" required>
+                    <div class="invalid-feedback">
+                        Por favor, insira uma data de término válida.
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('form').submit(function(event) {
+                var desconto = $('#desconto').val();
+                var dataInicio = $('#dataInicio').val();
+                var dataFim = $('#dataFim').val();
+
+                if (!desconto || desconto.trim() === "" || desconto < 0 || desconto > 100 || !dataInicio || dataInicio.trim() === "" || !dataFim || dataFim.trim() === "") {
+                    alert('Por favor, preencha todos os campos corretamente.');
+                    event.preventDefault(); // Impede o envio do formulário
+                }
+            });
+        });
+    </script>
 
 </body>
 
