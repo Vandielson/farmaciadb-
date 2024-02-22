@@ -34,6 +34,7 @@ public class Venda {
 
     @NotNull
     private double precoFinal;
+    
 
     public Venda() {
         this.medicamentos = new ArrayList<>();

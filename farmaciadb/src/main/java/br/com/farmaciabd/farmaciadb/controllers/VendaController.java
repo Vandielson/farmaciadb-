@@ -20,9 +20,8 @@ import br.com.farmaciabd.farmaciadb.repository.ClienteRepository;
 import br.com.farmaciabd.farmaciadb.repository.MedicamentoRepository;
 import br.com.farmaciabd.farmaciadb.repository.VendaRepository;
 import br.com.farmaciabd.farmaciadb.repository.VendedorRepository;
-import jakarta.validation.Valid;
 import br.com.farmaciabd.farmaciadb.repository.PromocaoRepository;
-
+import jakarta.validation.Valid;
 
 @Controller
 public class VendaController {
@@ -84,11 +83,25 @@ public class VendaController {
         }
 
         Iterable<Medicamento> medicamentos = medicamentoRepository.findAllById(medicamentoIds);
-        venda.setMedicamentos(medicamentos);
+        venda.setMedicamentos((List<Medicamento>) medicamentos);
 
+        // Calcular preço final da venda com base nas promoções
         venda.calcularPrecoFinal();
 
+        // Salvar a venda
         vendaRepository.save(venda);
+
+        // Diminuir a quantidade do estoque dos medicamentos vendidos
+        for (Medicamento medicamento : medicamentos) {
+            int quantidadeVendida = 1; // Quantidade vendida de cada medicamento, ajuste conforme necessário
+            int quantidadeDisponivel = medicamento.getQuantidade();
+            if (quantidadeVendida > quantidadeDisponivel) {
+                // Lidar com a situação em que não há quantidade suficiente disponível no estoque
+            } else {
+                medicamento.setQuantidade(quantidadeDisponivel - quantidadeVendida);
+                medicamentoRepository.save(medicamento);
+            }
+        }
 
         attributes.addFlashAttribute("mensagem", "Venda criada com sucesso!");
         return "redirect:/vendas";
@@ -148,5 +161,6 @@ public class VendaController {
 
         return "redirect:/vendas";
     }
+
 
 }

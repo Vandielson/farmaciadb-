@@ -6,7 +6,7 @@ import br.com.farmaciabd.farmaciadb.repository.MedicamentoRepository;
 import br.com.farmaciabd.farmaciadb.repository.PromocaoRepository;
 import lombok.AllArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 @AllArgsConstructor
 @Controller
@@ -30,11 +29,6 @@ public class RelatorioController {
     public String form(Model model) {
         return "relatorios/index";
     }
-
-//    @GetMapping("/relatorios/promocoes")
-//    public String promocoes(Model model) {
-//        return "relatorios/relatorioPromocoes";
-//    }
 
     @GetMapping("/relatorios/promocoes")
     public ModelAndView promocoes(@RequestParam(name = "dataInicio", required = false) String dataInicio,
