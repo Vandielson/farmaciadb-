@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import br.com.farmaciabd.farmaciadb.dto.VendaFormularioDTO;
 import br.com.farmaciabd.farmaciadb.dto.VendaMedicamentoDTO;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,23 +28,15 @@ import br.com.farmaciabd.farmaciadb.repository.VendedorRepository;
 import br.com.farmaciabd.farmaciadb.repository.PromocaoRepository;
 import jakarta.validation.Valid;
 
+@AllArgsConstructor
 @Controller
 public class VendaController {
 
-    @Autowired
-    private VendaRepository vendaRepository;
-
-    @Autowired
-    private MedicamentoRepository medicamentoRepository;
-
-    @Autowired
-    private ClienteRepository clienteRepository;
-
-    @Autowired
-    private VendedorRepository vendedorRepository;
-    
-    @Autowired
-    private PromocaoRepository promocaoRepository;
+    private final VendaRepository vendaRepository;
+    private final MedicamentoRepository medicamentoRepository;
+    private final ClienteRepository clienteRepository;
+    private final VendedorRepository vendedorRepository;
+    private final PromocaoRepository promocaoRepository;
 
     @GetMapping("/newVenda")
     public String form(Model model) {
