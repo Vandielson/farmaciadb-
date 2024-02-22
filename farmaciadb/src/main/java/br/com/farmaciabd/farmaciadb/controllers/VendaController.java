@@ -3,6 +3,7 @@ package br.com.farmaciabd.farmaciadb.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,24 +24,15 @@ import br.com.farmaciabd.farmaciadb.repository.VendedorRepository;
 import jakarta.validation.Valid;
 import br.com.farmaciabd.farmaciadb.repository.PromocaoRepository;
 
-
+@AllArgsConstructor
 @Controller
 public class VendaController {
 
-    @Autowired
-    private VendaRepository vendaRepository;
-
-    @Autowired
-    private MedicamentoRepository medicamentoRepository;
-
-    @Autowired
-    private ClienteRepository clienteRepository;
-
-    @Autowired
-    private VendedorRepository vendedorRepository;
-    
-    @Autowired
-    private PromocaoRepository promocaoRepository;
+    private final VendaRepository vendaRepository;
+    private final MedicamentoRepository medicamentoRepository;
+    private final ClienteRepository clienteRepository;
+    private final VendedorRepository vendedorRepository;
+    private final PromocaoRepository promocaoRepository;
 
     @GetMapping("/newVenda")
     public String form(Model model) {
