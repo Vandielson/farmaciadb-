@@ -5,22 +5,85 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Cadastro de Venda - Farmácia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="bg-light">
 
-    <header>
-    	<nav>
-    	</nav>
-    </header>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" id="home" href="/">Farmácia BD</a></h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="/clientes">CLIENTES</a>
+        <a class="p-2 text-dark" href="/medicamentos">MEDICAMENTOS</a>
+        <a class="p-2 text-dark" href="/vendedores">VENDEDORES</a>
+        <a class="p-2 text-dark" href="/promocoes">PROMOÇÕES</a>
+    </nav>
+</div>
 
-    <div>
-		<h1>Form Venda</h1>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>Cadastro de Venda</h2>
     </div>
 
-    <footer>
-    </footer>
+    <div class="mx-auto">
+        <form class="needs-validation" novalidate method="post" action="/newVenda">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="cliente">Cliente</label>
+                    <select class="custom-select d-block w-100" id="cliente" name="clienteId" required>
+                        <option value="">Selecione um cliente...</option>
+                        <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nome}"></option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor, selecione um cliente.
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="vendedor">Vendedor</label>
+                    <select class="custom-select d-block w-100" id="vendedor" name="vendedorId" required>
+                        <option value="">Selecione um vendedor...</option>
+                        <option th:each="vendedor : ${vendedores}" th:value="${vendedor.id}" th:text="${vendedor.nome}"></option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor, selecione um vendedor.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="medicamentos">Medicamentos</label>
+                    <select class="custom-select d-block w-100" id="medicamentos" name="medicamentoIds" required multiple>
+                        <option value="">Selecione os medicamentos...</option>
+						<option th:each="medicamento : ${medicamentos}" th:value="${medicamento.id}" th:text="${medicamento.nome}"></option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor, selecione um ou mais medicamentos.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="promocao">Promoção (opcional)</label>
+                    <select class="custom-select d-block w-100" id="promocao" name="promocaoId">
+                        <option value="">Selecione uma promoção...</option>
+						<option th:each="promocao : ${promocoes}" th:value="${promocao.id}" th:text="${promocao.medicamento.nome}"></option>
+                    </select>
+                </div>
+            </div>
+
+
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Cadastrar</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
 </body>
 

@@ -1,7 +1,6 @@
 package br.com.farmaciabd.farmaciadb.repository;
 
 import br.com.farmaciabd.farmaciadb.model.Vendedor;
-import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;

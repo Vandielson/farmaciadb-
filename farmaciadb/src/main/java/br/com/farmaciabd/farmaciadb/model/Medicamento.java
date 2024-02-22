@@ -1,9 +1,12 @@
 package br.com.farmaciabd.farmaciadb.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -13,6 +16,9 @@ public class Medicamento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
+	@ManyToMany(mappedBy = "medicamentos")
+    private List<Venda> vendas;
 	
 	@NotEmpty
 	private String nome;

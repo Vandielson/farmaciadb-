@@ -18,6 +18,7 @@
             <a class="p-2 text-dark" href="/clientes">CLIENTES</a>
             <a class="p-2 text-dark" href="/medicamentos">MEDICAMENTOS</a>
             <a class="p-2 text-dark" href="/vendedores">VENDEDORES</a>
+            <a class="p-2 text-dark" href="/vendas">VENDAS</a>
         </nav>
     </div>
 
@@ -33,7 +34,7 @@
                     <div class="col-md-12 mb-3">
                         <label for="medicamento">Medicamento</label>
                         <select class="custom-select d-block w-100" id="medicamento" name="medicamentoId" required>
-                            <option value="">Selecione um medicamento...</option>
+                            <option value="">Selecione o medicamento...</option>
                             <option th:each="medicamento : ${medicamentos}" th:value="${medicamento.id}" th:text="${medicamento.nome}"></option>
                         </select>
                         <div class="invalid-feedback">
