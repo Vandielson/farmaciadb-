@@ -5,6 +5,8 @@ import br.com.farmaciabd.farmaciadb.model.Promocao;
 import br.com.farmaciabd.farmaciadb.repository.MedicamentoRepository;
 import br.com.farmaciabd.farmaciadb.repository.PromocaoRepository;
 import lombok.AllArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +21,10 @@ import java.util.List;
 @AllArgsConstructor
 @Controller
 public class RelatorioController {
-
-    private final PromocaoRepository promocoesRepository;
-    private final MedicamentoRepository medicamentoRepository;
+	
+	private final PromocaoRepository promocaoRepository;
+	
+	private final MedicamentoRepository medicamentoRepository;
 
     @GetMapping("/relatorios")
     public String form(Model model) {
@@ -44,7 +47,7 @@ public class RelatorioController {
         Date dataFimDate = parseDate(dataFim);
 
 
-        var promocoes = promocoesRepository.findByFilter(dataInicioDate, dataFimDate, idMedicamento);
+        var promocoes = promocaoRepository.findByFilter(dataInicioDate, dataFimDate, idMedicamento);
 
         model.addObject("promocoes", promocoes);
         model.addObject("medicamentos", medicamentoRepository.findAll());

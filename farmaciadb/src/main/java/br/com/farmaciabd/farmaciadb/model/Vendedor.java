@@ -60,7 +60,7 @@ public class Vendedor{
 		return salario;
 	}
 	public void setSalario(double salario) {
-		this.salario = percentualComissao;
+		this.salario = salario;
 	}
 	
 	public double getPercentualComissao() {
