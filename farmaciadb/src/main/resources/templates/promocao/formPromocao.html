@@ -35,7 +35,7 @@
                         <label for="medicamento">Medicamento</label>
                         <select class="custom-select d-block w-100" id="medicamento" name="medicamentoId" required>
                             <option value="">Selecione o medicamento...</option>
-                            <option th:each="medicamento : ${medicamentos}" th:value="${medicamento.id}" th:text="${medicamento.nome}"></option>
+                            <option th:each="medicamento : ${medicamentos}" th:value="${medicamento.id}" th:text="${medicamento.nome} + ' - ' + ${medicamento.dosagem}"></option>
                         </select>
                         <div class="invalid-feedback">
                             É obrigatório selecionar um medicamento.

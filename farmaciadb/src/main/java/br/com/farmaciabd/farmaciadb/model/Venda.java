@@ -1,16 +1,10 @@
 package br.com.farmaciabd.farmaciadb.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -29,11 +23,16 @@ public class Venda {
     @ManyToMany
     private List<Medicamento> medicamentos;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Promocao promocao;
+    @ManyToMany
+    private List<Promocao> promocao;
 
     @NotNull
     private double precoFinal;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    
 
     public Venda() {
         this.medicamentos = new ArrayList<>();
@@ -63,12 +62,13 @@ public class Venda {
 		this.vendedor = vendedor;
 	}
 
-	public Promocao getPromocao() {
+	public List<Promocao> getPromocao() {
 		return promocao;
 	}
 
-	public void setPromocao(Promocao promocao) {
-		this.promocao = promocao;
+	public void setPromocao(Iterable<Promocao> promocoes) {
+
+        this.promocao = (List<Promocao>) promocoes;
 	}
 
 	public double getPrecoFinal() {
@@ -83,10 +83,10 @@ public class Venda {
         double precoTotal = 0.0;
         for (Medicamento medicamento : medicamentos) {
             double precoItem = medicamento.getPreco();
+            if(medicamento.getPromocao() != null) {
+            	precoItem -= medicamento.getDesconto();
+            }
             precoTotal += precoItem;
-        }
-        if (promocao != null) {
-            precoTotal -= precoTotal * promocao.getDesconto() / 100.0;
         }
         this.precoFinal = precoTotal;
     }

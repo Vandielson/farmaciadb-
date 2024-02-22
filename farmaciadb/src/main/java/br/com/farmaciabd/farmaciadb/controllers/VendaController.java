@@ -1,8 +1,12 @@
 package br.com.farmaciabd.farmaciadb.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import br.com.farmaciabd.farmaciadb.dto.VendaFormularioDTO;
+import br.com.farmaciabd.farmaciadb.dto.VendaMedicamentoDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +25,8 @@ import br.com.farmaciabd.farmaciadb.repository.ClienteRepository;
 import br.com.farmaciabd.farmaciadb.repository.MedicamentoRepository;
 import br.com.farmaciabd.farmaciadb.repository.VendaRepository;
 import br.com.farmaciabd.farmaciadb.repository.VendedorRepository;
-import jakarta.validation.Valid;
 import br.com.farmaciabd.farmaciadb.repository.PromocaoRepository;
+import jakarta.validation.Valid;
 
 @AllArgsConstructor
 @Controller
@@ -40,22 +44,35 @@ public class VendaController {
         List<Cliente> clientes = (List<Cliente>) clienteRepository.findAll();
         List<Vendedor> vendedores = (List<Vendedor>) vendedorRepository.findAll();
         List<Promocao> promocoes = (List<Promocao>) promocaoRepository.findAll();
+        List<VendaMedicamentoDTO> medicamentosVenda = (List<VendaMedicamentoDTO>) new ArrayList<VendaMedicamentoDTO>();
         
         model.addAttribute("venda", new Venda());
         model.addAttribute("medicamentos", medicamentos);
         model.addAttribute("clientes", clientes);
         model.addAttribute("vendedores", vendedores);
         model.addAttribute("promocoes", promocoes);
+        model.addAttribute("medicamentosVenda", medicamentosVenda);
         
         return "venda/formVenda";
     }
 
     @PostMapping("/newVenda")
-    public String form(@RequestParam("clienteId") long clienteId,
-                       @RequestParam("vendedorId") long vendedorId,
-                       @RequestParam("medicamentoIds") List<Long> medicamentoIds,
+    public String form(@RequestBody VendaFormularioDTO vendaFormulario,
                        Venda venda,
                        RedirectAttributes attributes) {
+
+        long clienteId = vendaFormulario.getClienteId();
+        long vendedorId = vendaFormulario.getVendedorId();
+        List<VendaMedicamentoDTO> medicamentosVenda = vendaFormulario.getMedicamentosVenda();
+
+//        @PostMapping("/newVenda")
+//        public String form(@RequestParam("clienteId") long clienteId,
+//        @RequestParam("vendedorId") long vendedorId,
+//        @RequestParam("medicamentosVenda") List<VendaMedicamentoDTO> medicamentosVenda,
+//        Venda venda,
+//        RedirectAttributes attributes) {
+
+
 
         var clienteOptional = clienteRepository.findById(clienteId);
         if (clienteOptional.isPresent()) {
@@ -75,12 +92,34 @@ public class VendaController {
             return "redirect:/newVenda";
         }
 
+        List<Long> medicamentoIds = medicamentosVenda.stream()
+                .map(VendaMedicamentoDTO::getMedicamentoId)
+                .collect(Collectors.toList());
+
         Iterable<Medicamento> medicamentos = medicamentoRepository.findAllById(medicamentoIds);
-        venda.setMedicamentos(medicamentos);
+        venda.setMedicamentos((List<Medicamento>) medicamentos);
 
         venda.calcularPrecoFinal();
 
         vendaRepository.save(venda);
+
+        // Diminuir a quantidade do estoque dos medicamentos vendidos
+        for (VendaMedicamentoDTO vendaMedicamentoDTO : medicamentosVenda) {
+            Long medicamentoId = vendaMedicamentoDTO.getMedicamentoId();
+            int quantidadeVendida = vendaMedicamentoDTO.getQuantidade();
+
+            Medicamento medicamento = medicamentoRepository.findById(medicamentoId)
+                    .orElseThrow(() -> new RuntimeException("Medicamento não encontrado"));
+
+            int quantidadeDisponivel = medicamento.getQuantidade();
+            if (quantidadeVendida > quantidadeDisponivel) {
+                attributes.addFlashAttribute("mensagem", "Medicamento " + medicamento.getNome() + " não possui quantidade suficiente em estoque...");
+                return "redirect:/newVenda";
+            } else {
+                medicamento.setQuantidade(quantidadeDisponivel - quantidadeVendida);
+                medicamentoRepository.save(medicamento);
+            }
+        }
 
         attributes.addFlashAttribute("mensagem", "Venda criada com sucesso!");
         return "redirect:/vendas";
@@ -140,5 +179,6 @@ public class VendaController {
 
         return "redirect:/vendas";
     }
+
 
 }

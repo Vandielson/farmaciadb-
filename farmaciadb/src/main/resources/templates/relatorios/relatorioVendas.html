@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RELATÓRIOS - farmacia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body class="bg-light">
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" id="home" href="/">Farmácia BD</a></h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="/relatorio1">Relatório de Vendas</a>
+    </nav>
+</div>
+
+<main role="main" class="col-p-3 p-md-5">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Relatório de Vendas</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+<!--                <button onclick="window.location.href='/novoRelatorio'" class="btn btn-sm btn-outline-secondary">Novo Relatório</button>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <form th:action="@{/relatorios/vendas}" method="get">
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="dataInicio">Apartir de:</label>
+                    <input type="date" class="form-control" id="dataInicio" name="dataInicio" placeholder="Data de Início">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="dataFim">Até:</label>
+                    <input type="date" class="form-control" id="dataFim" name="dataFim" placeholder="Data Final">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="idsMedicamentos">Medicamentos:</label>
+                    <div class="checkbox-group">
+                        <div th:each="medicamento : ${medicamentos}" class="form-check">
+                            <input type="checkbox" class="form-check-input" id="medicamento-${medicamento.id}" name="idsMedicamentos" th:value="${medicamento.id}">
+                            <label class="form-check-label" th:for="'medicamento-' + ${medicamento.id}" th:text="${medicamento.nome + ' - ' + medicamento.dosagem}"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="valorVendaMin">Valor Mínimo:</label>
+                    <input type="number" step="0.01" class="form-control" id="valorVendaMin" name="valorVendaMin" placeholder="Valor Mínimo">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="valorVendaMax">Valor Máximo:</label>
+                    <input type="number" step="0.01" class="form-control" id="valorVendaMax" name="valorVendaMax" placeholder="Valor Máximo">
+                </div>
+
+                <div class="form-group col-md-2 mt-4 ml-auto">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+            </div>
+        </form>
+
+        <h2>Vendas</h2>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Vendedor</th>
+                <th>Medicamento(s)</th>
+                <th>Preço Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="venda : ${vendas}">
+                <td th:text="${venda.id}"></td>
+                <td th:text="${venda.cliente != null ? venda.cliente.nome : '-'}"></td>
+                <td th:text="${venda.vendedor != null ? venda.vendedor.nome : '-'}"></td>
+                <td>
+				            <span th:each="medicamento, iterStat : ${venda.medicamentos}">
+				                <span th:text="${medicamento.nome}"></span>
+				                <span th:if="${!#lists.isEmpty(venda.medicamentos) && iterStat.index != #lists.size(venda.medicamentos) - 1}">,</span>
+				            </span>
+                </td>
+                <td th:text="${venda.precoFinal}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

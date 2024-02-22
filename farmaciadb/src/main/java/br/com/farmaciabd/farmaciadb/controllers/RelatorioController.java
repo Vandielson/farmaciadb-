@@ -4,9 +4,10 @@ import br.com.farmaciabd.farmaciadb.model.Medicamento;
 import br.com.farmaciabd.farmaciadb.model.Promocao;
 import br.com.farmaciabd.farmaciadb.repository.MedicamentoRepository;
 import br.com.farmaciabd.farmaciadb.repository.PromocaoRepository;
+import br.com.farmaciabd.farmaciadb.repository.VendaRepository;
 import lombok.AllArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,15 +27,12 @@ public class RelatorioController {
 	
 	private final MedicamentoRepository medicamentoRepository;
 
+    private final VendaRepository vendaRepository;
+
     @GetMapping("/relatorios")
     public String form(Model model) {
         return "relatorios/index";
     }
-
-//    @GetMapping("/relatorios/promocoes")
-//    public String promocoes(Model model) {
-//        return "relatorios/relatorioPromocoes";
-//    }
 
     @GetMapping("/relatorios/promocoes")
     public ModelAndView promocoes(@RequestParam(name = "dataInicio", required = false) String dataInicio,
@@ -50,6 +48,27 @@ public class RelatorioController {
         var promocoes = promocaoRepository.findByFilter(dataInicioDate, dataFimDate, idMedicamento);
 
         model.addObject("promocoes", promocoes);
+        model.addObject("medicamentos", medicamentoRepository.findAll());
+
+        return model;
+    }
+
+    @GetMapping("/relatorios/vendas")
+    public ModelAndView promocoes(@RequestParam(name = "dataCompra", required = false) String dataInicio,
+                                  @RequestParam(name = "dataFim", required = false) String dataFim,
+                                  @RequestParam(name = "idsMedicamentos", required = false) List<Long> idsMedicamentos,
+                                  @RequestParam(name = "valorVendaMin", required = false) Double valorVendaMin,
+                                  @RequestParam(name = "valorVendaMax", required = false) Double valorVendaMax){
+
+        ModelAndView model = new ModelAndView("relatorios/relatorioVendas");
+
+        Date dataInicioDate = parseDate(dataInicio);
+        Date dataFimDate = parseDate(dataFim);
+
+
+        var vendas = vendaRepository.findByFilter(dataInicioDate, dataFimDate, idsMedicamentos, valorVendaMin, valorVendaMax);
+
+        model.addObject("vendas", vendas);
         model.addObject("medicamentos", medicamentoRepository.findAll());
 
         return model;
