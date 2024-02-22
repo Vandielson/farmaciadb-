@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cadastro de Venda - Farmácia</title>
+    <title>VENDA - Farmácia</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
@@ -27,9 +27,103 @@
     </div>
 
     <div class="mx-auto">
-        <form class="needs-validation" novalidate method="post" action="/newVenda">
+<!--        <form class="needs-validation" novalidate method="post" action="/newVenda">-->
+<!--            <div class="row">-->
+<!--                <div class="col-md-6 mb-3">-->
+<!--                    <label for="cliente">Cliente</label>-->
+<!--                    <select class="custom-select d-block w-100" id="cliente" name="clienteId" required>-->
+<!--                        <option value="">Selecione um cliente...</option>-->
+<!--                        <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nome}"></option>-->
+<!--                    </select>-->
+<!--                    <div class="invalid-feedback">-->
+<!--                        Por favor, selecione um cliente.-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="col-md-6 mb-3">-->
+<!--                    <label for="vendedor">Vendedor</label>-->
+<!--                    <select class="custom-select d-block w-100" id="vendedor" name="vendedorId" required>-->
+<!--                        <option value="">Selecione um vendedor...</option>-->
+<!--                        <option th:each="vendedor : ${vendedores}" th:value="${vendedor.id}" th:text="${vendedor.nome}"></option>-->
+<!--                    </select>-->
+<!--                    <div class="invalid-feedback">-->
+<!--                        Por favor, selecione um vendedor.-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="row">-->
+<!--                <div class="col-md-12 mb-3">-->
+<!--                    <label for="medicamentos">Medicamentos</label>-->
+<!--                    <div class="form-check">-->
+<!--                        <th:block th:each="medicamento, index : ${medicamentos}">-->
+<!--                            <div class="form-check">-->
+<!--                                <input class="form-check-input" type="checkbox" id="medicamento_${medicamento.id}" name="medicamentosVenda[${index.index}].medicamentoId" th:value="${medicamento.id}">-->
+<!--                                <label class="form-check-label" for="medicamento_${medicamento.id}" th:text="${medicamento.nome} + ' - ' + ${medicamento.dosagem}"></label>-->
+<!--                                <input type="number" name="medicamentosVenda[${index.index}].quantidade" placeholder="Quantidade" required>-->
+<!--                            </div>-->
+<!--                        </th:block>-->
+<!--                    </div>-->
+<!--                    <div class="invalid-feedback">-->
+<!--                        Por favor, selecione um ou mais medicamentos.-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <hr class="mb-4">-->
+<!--            <button class="btn btn-primary btn-lg btn-block" type="submit">Cadastrar</button>-->
+<!--        </form>-->
+<!--        <form class="needs-validation" novalidate method="post" action="/newVenda">-->
+<!--            <div class="row">-->
+<!--                <div class="col-md-6 mb-3">-->
+<!--                    <label for="cliente">Cliente</label>-->
+<!--                    <select class="custom-select d-block w-100" id="cliente" name="clienteId" required>-->
+<!--                        <option value="">Selecione um cliente...</option>-->
+<!--                        <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nome}"></option>-->
+<!--                    </select>-->
+<!--                    <div class="invalid-feedback">-->
+<!--                        Por favor, selecione um cliente.-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="col-md-6 mb-3">-->
+<!--                    <label for="vendedor">Vendedor</label>-->
+<!--                    <select class="custom-select d-block w-100" id="vendedor" name="vendedorId" required>-->
+<!--                        <option value="">Selecione um vendedor...</option>-->
+<!--                        <option th:each="vendedor : ${vendedores}" th:value="${vendedor.id}" th:text="${vendedor.nome}"></option>-->
+<!--                    </select>-->
+<!--                    <div class="invalid-feedback">-->
+<!--                        Por favor, selecione um vendedor.-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="row">-->
+<!--                <div class="col-md-12 mb-3">-->
+<!--                    <label for="medicamentos">Medicamentos</label>-->
+<!--                    <div class="form-check">-->
+<!--                        <th:block th:each="medicamento, index : ${medicamentos}">-->
+<!--                            <div class="form-check">-->
+<!--                                <input class="form-check-input" type="checkbox" id="medicamento_${medicamento.id}" name="medicamentosVenda[${index.index}].medicamentoId" th:value="${medicamento.id}">-->
+<!--                                <label class="form-check-label" for="medicamento_${medicamento.id}" th:text="${medicamento.nome} + ' - ' + ${medicamento.dosagem}"></label>-->
+<!--                                <input type="number" name="medicamentosVenda[${index.index}].quantidade" placeholder="Quantidade" required>-->
+<!--                            </div>-->
+<!--                        </th:block>-->
+<!--                    </div>-->
+<!--                    <div class="invalid-feedback">-->
+<!--                        Por favor, selecione um ou mais medicamentos.-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <hr class="mb-4">-->
+<!--            <button class="btn btn-primary btn-lg btn-block" type="submit">Cadastrar</button>-->
+<!--        </form>-->
+
+
+        <form class="needs-validation" novalidate id="form">
             <div class="row">
-                <div class="col-md-12 mb-3">
+                <div class="col-md-6 mb-3">
                     <label for="cliente">Cliente</label>
                     <select class="custom-select d-block w-100" id="cliente" name="clienteId" required>
                         <option value="">Selecione um cliente...</option>
@@ -39,9 +133,8 @@
                         Por favor, selecione um cliente.
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 mb-3">
+
+                <div class="col-md-6 mb-3">
                     <label for="vendedor">Vendedor</label>
                     <select class="custom-select d-block w-100" id="vendedor" name="vendedorId" required>
                         <option value="">Selecione um vendedor...</option>
@@ -56,23 +149,18 @@
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label for="medicamentos">Medicamentos</label>
-                    <select class="custom-select d-block w-100" id="medicamentos" name="medicamentoIds" required multiple>
-                        <option value="">Selecione os medicamentos...</option>
-						<option th:each="medicamento : ${medicamentos}" th:value="${medicamento.id}" th:text="${medicamento.nome}"></option>
-                    </select>
+                    <div class="form-check">
+                        <th:block th:each="medicamento, index : ${medicamentos}">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="medicamento_${medicamento.id}" name="medicamentosVenda.medicamentoId" th:value="${medicamento.id}">
+                                <label class="form-check-label" for="medicamento_${medicamento.id}" th:text="${medicamento.nome} + ' - ' + ${medicamento.dosagem}"></label>
+                                <input type="number" id="medicamento_quantidade${medicamento.id}" name="medicamentosVenda.quantidade" required >
+                            </div>
+                        </th:block>
+                    </div>
                     <div class="invalid-feedback">
                         Por favor, selecione um ou mais medicamentos.
                     </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 mb-3">
-                    <label for="promocao">Promoção (opcional)</label>
-                    <select class="custom-select d-block w-100" id="promocao" name="promocaoId">
-                        <option value="">Selecione uma promoção...</option>
-						<option th:each="promocao : ${promocoes}" th:value="${promocao.id}" th:text="${promocao.medicamento.nome}"></option>
-                    </select>
                 </div>
             </div>
 
@@ -80,10 +168,91 @@
             <hr class="mb-4">
             <button class="btn btn-primary btn-lg btn-block" type="submit">Cadastrar</button>
         </form>
+
+
     </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script>
+    const form = document.getElementById('form');
+    form.addEventListener('submit', evento => {
+        evento.preventDefault();
+
+        const formData = new FormData(form);
+
+        // Criar um objeto para armazenar as respostas dos checkboxes
+        const medicamentosVenda = {};
+
+        var medicamentoVenda = {
+            medicamentoId: 0,
+            quantidade: 0
+        };
+        // Iterar sobre todos os elementos do formulário
+
+        var index = 0;
+        formData.forEach((value, key) => {
+
+            // Verificar se o elemento pertence aos checkboxes de medicamentos
+            if (key.startsWith('medicamentosVenda')) {
+                // // const medicamentoId = key.match(/\[(\d+)\]/)[1];
+                // console.log(key);
+                // const match = key.match(/medicamentosVenda\[\${(\d+)}\]\.medicamentoId/);
+                // const medicamentoId = match ? parseInt(match[1]) : null;
+                // console.log(medicamentoId);
+
+                if (!medicamentosVenda[index]) {
+                    medicamentosVenda[index] = {};
+                }
+
+                console.log(index)
+
+                // Adicionar o medicamentoId ao objeto medicamentosVenda
+                if (key.endsWith('.medicamentoId')) {
+                    // medicamentosVenda[index].medicamentoId = parseInt(value);
+                    medicamentoVenda.medicamentoId = parseInt(value);
+
+                }
+
+                // Adicionar a quantidade ao objeto medicamentosVenda
+                if (key.endsWith('.quantidade')) {
+                    // medicamentosVenda[index].quantidade = parseInt(value);
+                    medicamentoVenda.quantidade = parseInt(value);
+                }
+
+
+                index++;
+                medicamentosVenda[index] = medicamentoVenda;
+            }
+        });
+        console.log(medicamentosVenda);
+
+        // Adicionar o objeto medicamentosVenda ao objeto principal
+        const data = {
+            clienteId: formData.get('clienteId'),
+            vendedorId: vendedorId !== null ? vendedorId : undefined,
+            medicamentosVenda: Object.values(medicamentosVenda)
+        };
+
+        console.log(data);
+
+        fetch('/newVenda', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.ok) {
+                alert('Venda cadastrada com sucesso!');
+                window.location.href = '/vendas';
+            } else {
+                alert('Erro ao cadastrar a venda.');
+            }
+        });
+    });
+</script>
 
 </body>
 

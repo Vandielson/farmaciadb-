@@ -2,11 +2,7 @@ package br.com.farmaciabd.farmaciadb.model;
 
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -31,6 +27,17 @@ public class Medicamento {
 	
 	@NotNull
 	private int quantidade;
+
+	@OneToOne(mappedBy = "medicamento")
+	private Promocao promocao;
+
+	public Promocao getPromocao() {
+		return promocao;
+	}
+
+	public double getDesconto (){
+		return this.preco * promocao.getDesconto() / 100.0;
+	}
 	
 	public long getId() {
 		return id;

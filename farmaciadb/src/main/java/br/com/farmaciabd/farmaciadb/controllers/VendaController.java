@@ -1,8 +1,12 @@
 package br.com.farmaciabd.farmaciadb.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import br.com.farmaciabd.farmaciadb.dto.VendaFormularioDTO;
+import br.com.farmaciabd.farmaciadb.dto.VendaMedicamentoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,22 +51,35 @@ public class VendaController {
         List<Cliente> clientes = (List<Cliente>) clienteRepository.findAll();
         List<Vendedor> vendedores = (List<Vendedor>) vendedorRepository.findAll();
         List<Promocao> promocoes = (List<Promocao>) promocaoRepository.findAll();
+        List<VendaMedicamentoDTO> medicamentosVenda = (List<VendaMedicamentoDTO>) new ArrayList<VendaMedicamentoDTO>();
         
         model.addAttribute("venda", new Venda());
         model.addAttribute("medicamentos", medicamentos);
         model.addAttribute("clientes", clientes);
         model.addAttribute("vendedores", vendedores);
         model.addAttribute("promocoes", promocoes);
+        model.addAttribute("medicamentosVenda", medicamentosVenda);
         
         return "venda/formVenda";
     }
 
     @PostMapping("/newVenda")
-    public String form(@RequestParam("clienteId") long clienteId,
-                       @RequestParam("vendedorId") long vendedorId,
-                       @RequestParam("medicamentoIds") List<Long> medicamentoIds,
+    public String form(@RequestBody VendaFormularioDTO vendaFormulario,
                        Venda venda,
                        RedirectAttributes attributes) {
+
+        long clienteId = vendaFormulario.getClienteId();
+        long vendedorId = vendaFormulario.getVendedorId();
+        List<VendaMedicamentoDTO> medicamentosVenda = vendaFormulario.getMedicamentosVenda();
+
+//        @PostMapping("/newVenda")
+//        public String form(@RequestParam("clienteId") long clienteId,
+//        @RequestParam("vendedorId") long vendedorId,
+//        @RequestParam("medicamentosVenda") List<VendaMedicamentoDTO> medicamentosVenda,
+//        Venda venda,
+//        RedirectAttributes attributes) {
+
+
 
         var clienteOptional = clienteRepository.findById(clienteId);
         if (clienteOptional.isPresent()) {
@@ -82,21 +99,29 @@ public class VendaController {
             return "redirect:/newVenda";
         }
 
+        List<Long> medicamentoIds = medicamentosVenda.stream()
+                .map(VendaMedicamentoDTO::getMedicamentoId)
+                .collect(Collectors.toList());
+
         Iterable<Medicamento> medicamentos = medicamentoRepository.findAllById(medicamentoIds);
         venda.setMedicamentos((List<Medicamento>) medicamentos);
 
-        // Calcular preço final da venda com base nas promoções
         venda.calcularPrecoFinal();
 
-        // Salvar a venda
         vendaRepository.save(venda);
 
         // Diminuir a quantidade do estoque dos medicamentos vendidos
-        for (Medicamento medicamento : medicamentos) {
-            int quantidadeVendida = 1; // Quantidade vendida de cada medicamento, ajuste conforme necessário
+        for (VendaMedicamentoDTO vendaMedicamentoDTO : medicamentosVenda) {
+            Long medicamentoId = vendaMedicamentoDTO.getMedicamentoId();
+            int quantidadeVendida = vendaMedicamentoDTO.getQuantidade();
+
+            Medicamento medicamento = medicamentoRepository.findById(medicamentoId)
+                    .orElseThrow(() -> new RuntimeException("Medicamento não encontrado"));
+
             int quantidadeDisponivel = medicamento.getQuantidade();
             if (quantidadeVendida > quantidadeDisponivel) {
-                // Lidar com a situação em que não há quantidade suficiente disponível no estoque
+                attributes.addFlashAttribute("mensagem", "Medicamento " + medicamento.getNome() + " não possui quantidade suficiente em estoque...");
+                return "redirect:/newVenda";
             } else {
                 medicamento.setQuantidade(quantidadeDisponivel - quantidadeVendida);
                 medicamentoRepository.save(medicamento);
