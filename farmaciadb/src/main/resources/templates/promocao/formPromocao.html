@@ -136,7 +136,7 @@
             <label for="medicamentoId">Medicamento:</label><br>
             <select id="medicamentoId" name="medicamentoId" required>
                 <option value="">Selecione um medicamento</option>
-                <option th:each="medicamento : ${medicamentos}" th:value="${medicamento.id}" th:text="${medicamento.nome}"></option>
+                <option th:each="medicamento : ${medicamentos}" th:value="${medicamento.id}" th:text="${medicamento.nome + ' - ' + medicamento.dosagem}"></option>
             </select><br>
             <label for="desconto">Desconto:</label><br>
             <input type="number" id="desconto" name="desconto" required/><br>
