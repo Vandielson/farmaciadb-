@@ -13,8 +13,14 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" id="home" href="/">Farmácia BD</a></h5>
     <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark" href="/relatorios/vendas">Relatório de Vendas</a>
-        <a class="p-2 text-dark" href="/relatorios/promocoes">Relatório de Promoções</a>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="/clientes">CLIENTES</a>
+            <a class="p-2 text-dark" href="/medicamentos">MEDICAMENTOS</a>
+            <a class="p-2 text-dark" href="/promocoes">PROMOÇÕES</a>
+            <a class="p-2 text-dark" href="/vendedores">VENDEDORES</a>
+            <a class="p-2 text-dark" href="/vendas">VENDAS</a>
+            <a class="p-2 text-dark" href="/relatorios">RELATÓRIOS</a>
+        </nav>
     </nav>
 </div>
 
@@ -22,18 +28,18 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Relatórios Diversos</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-                <button onclick="window.location.href='/novoRelatorio'" class="btn btn-sm btn-outline-secondary">Novo Relatório</button>
-            </div>
         </div>
     </div>
 
     <!-- Conteúdo do relatório -->
-    <div class="container">
-        <!-- Adicione o conteúdo do relatório aqui -->
-        <h2>Relatório 1</h2>
-        <p>Conteúdo do relatório aqui...</p>
-    </div>
+    <main role="main" class="inner cover">
+        <p class="lead">
+            <a href="/relatorios/vendas">Relatório de Vendas</a>
+        </p>
+        <p class="lead">
+            <a href="/relatorios/promocoes">Relatório de Promoções</a>
+        </p>
+    </main>
 </main>
 
 <!-- Adicione scripts conforme necessário -->
