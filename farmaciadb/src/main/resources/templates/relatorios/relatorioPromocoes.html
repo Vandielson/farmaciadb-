@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RELATÓRIOS - farmacia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body class="bg-light">
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" id="home" href="/">Farmácia BD</a></h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="/relatorio1">Relatório de Vendas</a>
+        <a class="p-2 text-dark" href="/relatorio3">Relatório de Compras</a>
+    </nav>
+</div>
+
+<main role="main" class="col-p-3 p-md-5">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Relatório de Promoções</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+<!--                <button onclick="window.location.href='/novoRelatorio'" class="btn btn-sm btn-outline-secondary">Novo Relatório</button>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <form th:action="@{/relatorios/promocoes}" method="get">
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="dataInicio">Data de Início:</label>
+                    <input type="date" class="form-control" id="dataInicio" name="dataInicio">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="dataFim">Data Final:</label>
+                    <input type="date" class="form-control" id="dataFim" name="dataFim">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="idMedicamento">Medicamento:</label>
+                    <select class="form-control" id="idMedicamento" name="idMedicamento">
+                        <option value="">Selecione um medicamento:</option>
+                        <option th:each="medicamento : ${medicamentos}" th:value="${medicamento.id}" th:text="${medicamento.nome + ' - ' + medicamento.dosagem}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-2 mt-4">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+            </div>
+        </form>
+
+        <h2>Promoções</h2>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Medicamento</th>
+                <th>Desconto</th>
+                <th>Data de Início</th>
+                <th>Data de Fim</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="promocao : ${promocoes}">
+                <td th:text="${promocao.id}"></td>
+                <td th:if="${promocao.medicamento != null}" th:text="${promocao.medicamento.nome}"></td>
+                <td th:if="${promocao.medicamento == null}">Medicamento não especificado</td>
+                <td th:text="${promocao.desconto}"></td>
+                <td th:text="${#dates.format(promocao.dataInicio, 'dd/MM/yyyy')}"></td>
+                <td th:text="${#dates.format(promocao.dataFim, 'dd/MM/yyyy')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
